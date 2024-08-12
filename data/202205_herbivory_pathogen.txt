@@ -1,0 +1,361 @@
+species	plot	nitrogen	atribute	rust	p_mildew	d_mildew	l_spot	n_dmg_fung	mean_perc_dmg_fung	perc_leaves_dmg_fung	perc_dmg_fung	chewing	sucking	mining	n_dmg	mean_perc_dmg	n_leaves	perc_leaves_dmg	perc_dmg	date	comments
+To	1	0	species_1	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Dc	1	0	species_2	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Ra	1	0	species_3	0	0	0	9	9	10	90	9	0	0	0	0	0	10	0	0	2022_spring	
+To	1	1	species_1	0	5	0	5	7	10	70	7	1	0	0	1	5	10	10	0.5	2022_spring	
+Dc	1	1	species_2	0	0	0	7	7	5	70	3.5	0	0	0	0	0	10	0	0	2022_spring	
+Ra	1	1	species_3	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	
+Cb	2	0	species_1	2	0	0	6	6	5	60	3	0	1	0	0	0	10	0	0	2022_spring	
+Dc	2	0	species_2	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Pg	2	0	species_3	2	0	0	9	9	5	90	4.5	0	3	0	3	10	10	30	3	2022_spring	
+Cb	2	1	species_1	3	6	0	2	6	20	60	12	0	1	0	1	1	10	10	0.1	2022_spring	
+Dc	2	1	species_2	1	0	0	0	1	5	10	0.5	0	1	0	1	20	10	10	2	2022_spring	
+Pg	2	1	species_3	0	0	0	5	5	5	50	2.5	0	1	0	1	50	10	10	5	2022_spring	
+Fr	3	0	species_1	0	0	0	1	1	1	10	0.1	0	0	0	0	0	10	0	0	2022_spring	
+Hl	3	0	species_2	1	0	0	1	2	5	20	1	0	0	0	0	0	10	0	0	2022_spring	
+Ra	3	0	species_3	0	0	0	9	9	15	90	13.5	0	0	0	0	0	10	0	0	2022_spring	
+Fr	3	1	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Hl	3	1	species_2	0	1	1	0	1	10	10	1	0	0	0	0	0	10	0	0	2022_spring	
+Ra	3	1	species_3	0	0	0	7	7	1	70	0.7	0	0	0	0	0	10	0	0	2022_spring	
+Lp	4	0	species_1	0	0	0	10	10	35	100	35	0	0	0	0	0	10	0	0	2022_spring	
+Pt	4	0	species_2	0	0	0	7	7	15	70	10.5	0	0	0	0	0	10	0	0	2022_spring	
+Dc	4	0	species_3	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Lp	4	1	species_1	0	0	0	8	8	20	80	16	0	0	0	0	0	10	0	0	2022_spring	
+Pt	4	1	species_2	0	0	0	7	7	10	70	7	0	0	0	0	0	10	0	0	2022_spring	
+Dc	4	1	species_3	0	0	0	1	1	10	10	1	0	0	0	0	0	10	0	0	2022_spring	
+Be	5	0	species_1	0	0	0	5	5	1	50	0.5	0	5	0	5	5	10	50	2.5	2022_spring	
+Hl	5	0	species_2	3	0	0	4	4	5	40	2	0	0	0	0	0	10	0	0	2022_spring	
+Dc	5	0	species_3	0	0	0	3	3	20	30	6	0	0	0	0	0	10	0	0	2022_spring	
+Be	5	1	species_1	0	0	0	0	0	0	0	0	0	5	0	5	30	10	50	15	2022_spring	
+Hl	5	1	species_2	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Dc	5	1	species_3	0	0	0	3	3	5	30	1.5	0	0	0	0	0	10	0	0	2022_spring	
+Fr	6	0	species_1	0	0	0	0	0	0	0	0	0	1	0	1	20	10	10	2	2022_spring	
+To	6	0	species_2	0	0	0	2	2	5	20	1	0	0	0	0	0	10	0	0	2022_spring	
+Ra	6	0	species_3	0	0	0	5	5	10	50	5	0	2	0	2	1	10	20	0.2	2022_spring	
+Fr	6	1	species_1	0	0	0	1	1	1	10	0.1	0	0	0	0	0	10	0	0	2022_spring	
+To	6	1	species_2	0	0	0	3	3	10	30	3	1	0	0	1	5	10	10	0.5	2022_spring	
+Ra	6	1	species_3	0	0	0	8	8	10	80	8	1	0	0	1	1	10	10	0.1	2022_spring	
+Lp	7	0	species_1	0	0	0	9	9	25	90	22.5	0	0	0	0	0	10	0	0	2022_spring	
+Cb	7	0	species_2	0	0	0	3	3	15	30	4.5	0	0	0	0	0	10	0	0	2022_spring	
+Sp	7	0	species_3	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	
+Lp	7	1	species_1	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Cb	7	1	species_2	2	2	0	1	4	10	40	4	0	0	2	2	5	10	20	1	2022_spring	
+Sp	7	1	species_3	0	0	0	0	0	0	0	0	1	0	0	1	5	10	10	0.5	2022_spring	
+Pt	8	0	species_1	0	0	0	1	1	5	10	0.5	0	2	0	2	5	10	20	1	2022_spring	
+Dc	8	0	species_2	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Sp	8	0	species_3	0	0	0	1	1	1	10	0.1	0	1	0	1	5	10	10	0.5	2022_spring	
+Pt	8	1	species_1	0	0	0	0	0	0	0	0	0	3	0	3	5	10	30	1.5	2022_spring	
+Dc	8	1	species_2	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Sp	8	1	species_3	0	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+Fr	9	0	species_1	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	
+Pt	9	0	species_2	0	0	0	0	0	0	#DIV/0!	#DIV/0!	0	0	0	0	0	0	#DIV/0!	#DIV/0!	2022_spring	no poa
+Pm	9	0	species_3	0	0	0	3	3	10	30	3	3	0	0	3	10	10	30	3	2022_spring	
+Fr	9	1	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Pt	9	1	species_2	0	0	0	0	0	0	#DIV/0!	#DIV/0!	0	0	0	0	0	0	#DIV/0!	#DIV/0!	2022_spring	no poa
+Pm	9	1	species_3	0	0	0	5	5	5	50	2.5	0	1	0	1	10	10	10	1	2022_spring	
+Be	10	0	species_1	0	0	0	0	0	0	0	0	0	4	0	4	5	10	40	2	2022_spring	
+To	10	0	species_2	0	0	0	5	5	10	50	5	5	0	0	5	20	10	50	10	2022_spring	
+Dc	10	0	species_3	0	0	0	2	2	1	20	0.2	1	0	0	1	5	10	10	0.5	2022_spring	
+Be	10	1	species_1	0	0	0	1	1	5	10	0.5	0	1	1	2	5	10	20	1	2022_spring	
+To	10	1	species_2	0	0	0	1	1	1	10	0.1	0	2	0	2	15	10	20	3	2022_spring	
+Dc	10	1	species_3	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Pt	11	0	species_1	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	
+Cb	11	0	species_2	3	0	0	0	3	10	30	3	0	1	0	1	5	10	10	0.5	2022_spring	
+Sp	11	0	species_3	0	0	0	3	3	5	30	1.5	0	0	0	0	0	10	0	0	2022_spring	
+Pt	11	1	species_1	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	
+Cb	11	1	species_2	2	6	0	0	6	30	60	18	0	0	0	0	0	10	0	0	2022_spring	
+Sp	11	1	species_3	0	0	0	4	4	1	40	0.4	0	0	0	0	0	10	0	0	2022_spring	
+Be	12	0	species_1	0	0	0	3	3	1	30	0.3	0	0	3	3	5	10	30	1.5	2022_spring	
+Fr	12	0	species_2	0	0	0	0	0	0	0	0	0	0	1	1	1	10	10	0.1	2022_spring	
+Dc	12	0	species_3	0	0	0	4	4	5	40	2	0	0	0	1	1	10	10	0.1	2022_spring	
+Be	12	1	species_1	0	0	0	0	0	0	0	0	0	4	1	4	10	10	40	4	2022_spring	
+Fr	12	1	species_2	0	0	0	2	2	10	20	2	0	1	0	1	1	10	10	0.1	2022_spring	
+Dc	12	1	species_3	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Be	13	0	species_1	0	0	0	2	2	5	20	1	0	2	0	3	10	10	30	3	2022_spring	
+Hl	13	0	species_2	0	0	0	0	0	0	0	0	0	2	1	2	5	10	20	1	2022_spring	
+To	13	0	species_3	0	0	0	2	2	1	20	0.2	0	1	1	2	10	10	20	2	2022_spring	
+Be	13	1	species_1	0	0	0	0	0	0	0	0	1	3	0	3	1	10	30	0.3	2022_spring	
+Hl	13	1	species_2	0	0	0	1	1	1	10	0.1	0	2	3	4	10	10	40	4	2022_spring	
+To	13	1	species_3	0	0	0	2	2	1	20	0.2	1	0	0	1	1	10	10	0.1	2022_spring	
+Sp	14	0	species_1	0	0	0	2	2	1	20	0.2	0	1	0	1	1	10	10	0.1	2022_spring	
+Ra	14	0	species_2	0	0	0	5	5	1	50	0.5	0	0	1	0	1	10	0	0	2022_spring	
+Pm	14	0	species_3	0	0	0	6	6	5	60	3	0	0	0	0	0	10	0	0	2022_spring	
+Sp	14	1	species_1	1	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+Ra	14	1	species_2	0	0	0	5	5	5	50	2.5	0	0	0	0	0	10	0	0	2022_spring	
+Pm	14	1	species_3	0	0	0	4	4	5	40	2	1	0	0	1	1	10	10	0.1	2022_spring	
+Be	15	0	species_1	0	0	0	0	0	0	0	0	0	6	1	7	15	10	70	10.5	2022_spring	
+Pg	15	0	species_2	0	0	0	5	3	5	30	1.5	0	3	0	3	1	10	30	0.3	2022_spring	
+Ra	15	0	species_3	0	0	0	7	7	5	70	3.5	2	0	1	2	5	10	20	1	2022_spring	
+Be	15	1	species_1	0	0	0	0	0	0	0	0	0	1	0	1	10	10	10	1	2022_spring	
+Pg	15	1	species_2	0	0	0	5	5	1	50	0.5	1	3	0	4	5	10	40	2	2022_spring	
+Ra	15	1	species_3	0	0	0	0	0	0	0	0	5	0	0	0	5	10	0	0	2022_spring	
+Be	16	0	species_1	0	0	0	0	0	0	0	0	1	4	0	4	10	10	40	4	2022_spring	
+Pt	16	0	species_2	0	0	0	0	0	0	0	0	0	8	2	8	30	10	80	24	2022_spring	
+Pm	16	0	species_3	0	0	0	4	4	5	40	2	1	0	0	1	1	10	10	0.1	2022_spring	
+Be	16	1	species_1	0	0	0	4	4	5	40	2	0	0	0	0	0	10	0	0	2022_spring	
+Pt	16	1	species_2	0	0	0	0	0	0	0	0	0	0	5	3	5	10	30	1.5	2022_spring	10
+Pm	16	1	species_3	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	10
+Be	17	0	species_1	0	0	0	2	2	1	20	0.2	0	6	0	6	10	10	60	6	2022_spring	
+Pt	17	0	species_2	0	0	0	3	3	40	60	24	2	0	0	2	40	5	40	16	2022_spring	
+To	17	0	species_3	0	0	0	4	2	5	20	1	2	0	0	0	0	10	0	0	2022_spring	
+Be	17	1	species_1	0	1	0	0	1	15	10	1.5	0	2	0	2	10	10	20	2	2022_spring	
+Pt	17	1	species_2	0	1	0	0	1	10	10	1	0	2	2	4	10	10	40	4	2022_spring	
+To	17	1	species_3	0	0	0	5	5	1	50	0.5	3	1	0	4	10	10	40	4	2022_spring	
+Be	18	0	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Cb	18	0	species_2	4	0	1	0	4	7	40	2.8	5	0	0	0	0	10	0	0	2022_spring	
+Ra	18	0	species_3	0	0	0	3	3	10	30	3	2	0	0	2	5	10	20	1	2022_spring	
+Be	18	1	species_1	0	0	0	0	0	0	0	0	0	2	1	3	5	10	30	1.5	2022_spring	
+Cb	18	1	species_2	3	0	0	0	3	5	30	1.5	1	3	0	4	5	10	40	2	2022_spring	
+Ra	18	1	species_3	0	0	0	5	5	5	50	2.5	0	0	0	0	0	10	0	0	2022_spring	
+Cb	19	0	species_1	1	0	1	2	3	5	30	1.5	0	1	0	1	1	10	10	0.1	2022_spring	
+To	19	0	species_2	0	0	2	1	3	5	30	1.5	1	0	0	1	1	10	10	0.1	2022_spring	
+Ra	19	0	species_3	0	0	0	5	4	1	40	0.4	1	0	0	1	30	10	10	3	2022_spring	
+Cb	19	1	species_1	2	3	0	0	4	5	40	2	0	2	0	2	1	10	20	0.2	2022_spring	
+To	19	1	species_2	0	0	0	4	4	2	40	0.8	1	0	0	1	30	10	10	3	2022_spring	
+Ra	19	1	species_3	0	0	0	2	2	1	20	0.2	3	0	1	4	5	10	40	2	2022_spring	
+Pt	20	0	species_1	0	0	0	0	0	0	0	0	0	3	0	3	10	10	30	3	2022_spring	
+Dc	20	0	species_2	0	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+Pg	20	0	species_3	0	0	0	3	3	5	30	1.5	0	0	0	0	0	10	0	0	2022_spring	
+Pt	20	1	species_1	0	0	0	2	2	10	20	2	0	0	1	1	5	10	10	0.5	2022_spring	
+Dc	20	1	species_2	0	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+Pg	20	1	species_3	0	0	0	1	1	1	10	0.1	0	2	0	2	5	10	20	1	2022_spring	
+Pt	21	0	species_1	0	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+Cb	21	0	species_2	0	2	0	0	2	5	20	1	0	3	1	3	1	10	30	0.3	2022_spring	
+Ra	21	0	species_3	0	0	0	8	8	1	80	0.8	2	0	0	2	1	10	20	0.2	2022_spring	
+Pt	21	1	species_1	0	0	0	0	0	0	0	0	0	1	0	1	1	10	10	0.1	2022_spring	
+Cb	21	1	species_2	0	5	0	1	5	25	50	12.5	0	3	0	3	5	10	30	1.5	2022_spring	
+Ra	21	1	species_3	0	0	0	2	2	1	20	0.2	0	0	2	2	1	10	20	0.2	2022_spring	
+Cb	22	0	species_1	1	1	0	0	2	5	20	1	0	3	0	3	5	10	30	1.5	2022_spring	
+To	22	0	species_2	0	0	0	4	4	5	40	2	1	0	0	0	10	10	0	0	2022_spring	
+Pm	22	0	species_3	0	0	0	4	4	1	40	0.4	0	0	1	1	1	10	10	0.1	2022_spring	
+Cb	22	1	species_1	4	0	0	0	4	1	40	0.4	0	3	0	3	5	10	30	1.5	2022_spring	
+To	22	1	species_2	1	0	0	4	4	1	40	0.4	0	4	0	4	5	10	40	2	2022_spring	
+Pm	22	1	species_3	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Lp	23	0	species_1	0	0	0	10	10	25	100	25	0	0	0	0	0	10	0	0	2022_spring	
+To	23	0	species_2	0	0	0	1	1	1	10	0.1	0	1	0	1	1	10	10	0.1	2022_spring	
+Ra	23	0	species_3	0	0	0	2	0	1	0	0	4	1	0	3	5	10	30	1.5	2022_spring	
+Lp	23	1	species_1	0	0	0	3	5	5	50	2.5	0	0	0	0	0	10	0	0	2022_spring	
+To	23	1	species_2	0	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+Ra	23	1	species_3	0	0	0	4	4	1	40	0.4	1	0	1	1	1	10	10	0.1	2022_spring	
+Be	24	0	species_1	0	1	0	3	3	5	30	1.5	1	0	1	1	5	10	10	0.5	2022_spring	
+Pt	24	0	species_2	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	
+Pg	24	0	species_3	0	0	0	0	0	0	0	0	0	0	1	1	5	10	10	0.5	2022_spring	
+Be	24	1	species_1	0	0	0	0	0	0	0	0	0	3	0	3	10	10	30	3	2022_spring	
+Pt	24	1	species_2	0	0	0	0	0	0	0	0	0	2	1	3	10	10	30	3	2022_spring	
+Pg	24	1	species_3	0	0	0	1	1	1	10	0.1	0	3	0	3	5	10	30	1.5	2022_spring	
+Be	25	0	species_1	0	2	0	0	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+Ra	25	0	species_2	0	0	0	4	4	5	40	2	0	0	0	0	0	10	0	0	2022_spring	
+Pm	25	0	species_3	0	0	0	2	2	1	20	0.2	0	3	0	3	1	10	30	0.3	2022_spring	
+Be	25	1	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Ra	25	1	species_2	0	0	0	1	1	1	10	0.1	0	0	0	0	0	10	0	0	2022_spring	
+Pm	25	1	species_3	0	0	0	2	2	5	20	1	0	0	0	0	0	10	0	0	2022_spring	
+Fr	26	0	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Hl	26	0	species_2	0	0	0	2	2	5	20	1	0	0	0	0	0	10	0	0	2022_spring	
+To	26	0	species_3	0	0	0	4	4	10	40	4	0	0	0	0	0	10	0	0	2022_spring	
+Fr	26	1	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Hl	26	1	species_2	3	0	0	0	3	5	30	1.5	0	1	0	1	5	10	10	0.5	2022_spring	
+To	26	1	species_3	0	0	0	3	3	10	30	3	0	0	0	0	0	10	0	0	2022_spring	
+Hl	27	0	species_1	0	0	0	2	2	1	20	0.2	0	1	0	1	1	10	10	0.1	2022_spring	
+Sp	27	0	species_2	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Pg	27	0	species_3	0	0	0	1	1	10	10	1	0	0	0	0	0	10	0	0	2022_spring	
+Hl	27	1	species_1	1	0	0	1	2	5	20	1	0	1	0	0	5	10	0	0	2022_spring	
+Sp	27	1	species_2	0	0	0	2	2	5	20	1	0	0	0	0	0	10	0	0	2022_spring	
+Pg	27	1	species_3	0	0	0	1	1	10	10	1	1	0	0	1	10	10	10	1	2022_spring	
+Fr	28	0	species_1	0	0	0	1	1	1	10	0.1	0	0	0	0	0	10	0	0	2022_spring	
+Hl	28	0	species_2	0	0	0	3	3	5	30	1.5	0	2	0	2	1	10	20	0.2	2022_spring	
+Dc	28	0	species_3	0	0	0	1	1	1	10	0.1	0	0	0	0	0	10	0	0	2022_spring	
+Fr	28	1	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Hl	28	1	species_2	0	0	0	1	1	1	10	0.1	0	1	0	1	10	10	10	1	2022_spring	
+Dc	28	1	species_3	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Hl	29	0	species_1	0	0	0	5	5	1	50	0.5	0	0	2	2	1	10	20	0.2	2022_spring	
+Lp	29	0	species_2	0	0	0	7	7	5	70	3.5	1	2	0	3	10	10	30	3	2022_spring	
+Ra	29	0	species_3	0	0	0	3	3	1	30	0.3	4	0	0	3	0	10	30	0	2022_spring	
+Hl	29	1	species_1	0	0	0	2	2	1	20	0.2	0	1	0	1	5	10	10	0.5	2022_spring	
+Lp	29	1	species_2	0	0	0	4	4	1	40	0.4	0	1	0	1	5	10	10	0.5	2022_spring	
+Ra	29	1	species_3	0	0	0	2	2	1	20	0.2	1	0	0	1	1	10	10	0.1	2022_spring	
+Fr	30	0	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Ra	30	0	species_2	0	0	0	6	6	5	60	3	0	0	0	0	0	10	0	0	2022_spring	
+Pm	30	0	species_3	0	0	0	1	1	5	10	0.5	0	0	1	1	108	10	10	10.8	2022_spring	
+Fr	30	1	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Ra	30	1	species_2	0	0	0	2	2	1	20	0.2	2	0	0	2	1	10	20	0.2	2022_spring	
+Pm	30	1	species_3	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	
+Pt	31	0	species_1	0	0	0	2	2	5	20	1	0	2	0	2	20	10	20	4	2022_spring	
+Pg	31	0	species_2	0	0	0	1	1	1	10	0.1	0	0	0	0	0	10	0	0	2022_spring	
+Ra	31	0	species_3	0	0	0	3	3	1	30	0.3	1	0	0	1	1	10	10	0.1	2022_spring	
+Pt	31	1	species_1	0	0	0	3	3	15	30	4.5	1	0	1	2	10	10	20	2	2022_spring	
+Pg	31	1	species_2	0	0	0	0	0	0	0	0	0	2	0	2	55	10	20	11	2022_spring	
+Ra	31	1	species_3	0	0	0	3	3	5	30	1.5	1	0	0	1	5	10	10	0.5	2022_spring	
+Be	32	0	species_1	0	0	0	1	1	1	10	0.1	0	1	0	1	5	10	10	0.5	2022_spring	
+Pt	32	0	species_2	0	0	0	0	0	0	0	0	0	4	1	4	10	10	40	4	2022_spring	
+Sp	32	0	species_3	0	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+Be	32	1	species_1	0	0	0	0	0	0	0	0	0	2	0	2	5	10	20	1	2022_spring	
+Pt	32	1	species_2	0	0	0	0	0	0	0	0	2	3	0	3	10	10	30	3	2022_spring	
+Sp	32	1	species_3	0	0	0	1	1	10	10	1	1	0	0	1	1	10	10	0.1	2022_spring	
+Be	33	0	species_1	0	0	0	0	0	0	0	0	0	4	0	4	5	10	40	2	2022_spring	
+Sp	33	0	species_2	0	0	0	2	2	1	20	0.2	2	0	0	2	5	10	20	1	2022_spring	
+Ra	33	0	species_3	0	0	0	2	2	1	20	0.2	1	0	0	1	1	10	10	0.1	2022_spring	
+Be	33	1	species_1	0	0	0	0	0	0	0	0	1	1	0	2	1	10	20	0.2	2022_spring	
+Sp	33	1	species_2	0	0	0	0	0	0	0	0	2	0	0	2	20	10	20	4	2022_spring	
+Ra	33	1	species_3	0	0	0	2	2	5	20	1	0	0	1	1	1	10	10	0.1	2022_spring	
+Fr	34	0	species_1	0	0	0	7	7	5	70	3.5	0	0	0	0	0	10	0	0	2022_spring	
+Pt	34	0	species_2	0	0	0	0	0	0	#DIV/0!	#DIV/0!	0	0	0	0	0	0	#DIV/0!	#DIV/0!	2022_spring	no poa
+Sp	34	0	species_3	0	0	0	6	6	5	60	3	0	0	0	0	0	10	0	0	2022_spring	
+Fr	34	1	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Pt	34	1	species_2	0	0	0	0	0	0	#DIV/0!	#DIV/0!	0	0	0	0	0	0	#DIV/0!	#DIV/0!	2022_spring	no poa
+Sp	34	1	species_3	0	0	0	2	2	1	20	0.2	0	2	0	2	5	10	20	1	2022_spring	
+Hl	35	0	species_1	0	0	0	0	0	0	0	0	0	3	0	3	1	10	30	0.3	2022_spring	
+Pt	35	0	species_2	0	0	0	2	2	5	50	2.5	0	0	0	0	0	4	0	0	2022_spring	
+Ra	35	0	species_3	0	0	0	7	7	1	70	0.7	1	0	0	1	10	10	10	1	2022_spring	
+Hl	35	1	species_1	0	0	0	0	0	0	0	0	0	1	1	2	10	10	20	2	2022_spring	
+Pt	35	1	species_2	0	0	0	3	3	10	30	3	0	3	4	5	25	10	50	12.5	2022_spring	
+Ra	35	1	species_3	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Fr	36	0	species_1	0	0	0	5	5	5	50	2.5	0	0	0	0	0	10	0	0	2022_spring	
+To	36	0	species_2	0	0	0	1	1	5	10	0.5	1	0	0	1	5	10	10	0.5	2022_spring	
+Dc	36	0	species_3	0	0	0	1	1	1	14.28571429	0.142857143	0	0	0	0	0	7	0	0	2022_spring	
+Fr	36	1	species_1	0	0	0	4	4	5	40	2	0	2	0	2	10	10	20	2	2022_spring	
+To	36	1	species_2	0	0	0	0	0	0	0	0	0	4	1	0	1	10	0	0	2022_spring	
+Dc	36	1	species_3	0	0	0	3	3	10	30	3	0	0	0	0	0	10	0	0	2022_spring	
+Lp	37	0	species_1	0	0	0	9	9	50	90	45	0	0	0	0	0	10	0	0	2022_spring	
+Cb	37	0	species_2	0	4	0	2	5	10	50	5	0	0	0	0	0	10	0	0	2022_spring	
+Pg	37	0	species_3	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	
+Lp	37	1	species_1	0	0	0	4	4	1	40	0.4	0	2	0	2	1	10	20	0.2	2022_spring	
+Cb	37	1	species_2	0	0	0	1	1	5	10	0.5	0	2	0	2	1	10	20	0.2	2022_spring	
+Pg	37	1	species_3	0	0	0	3	3	5	30	1.5	0	0	0	0	0	10	0	0	2022_spring	
+Hl	38	0	species_1	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Pg	38	0	species_2	0	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+Pm	38	0	species_3	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Hl	38	1	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Pg	38	1	species_2	0	0	0	0	0	0	0	0	0	1	0	1	1	10	10	0.1	2022_spring	
+Pm	38	1	species_3	0	0	0	1	1	5	10	0.5	3	1	0	3	5	10	30	1.5	2022_spring	
+Be	39	0	species_1	0	0	0	1	1	1	10	0.1	0	3	0	3	10	10	30	3	2022_spring	
+Fr	39	0	species_2	0	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+To	39	0	species_3	0	2	0	2	4	10	40	4	0	2	0	2	1	10	20	0.2	2022_spring	
+Be	39	1	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Fr	39	1	species_2	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	
+To	39	1	species_3	0	1	0	3	4	1	40	0.4	2	0	0	2	5	10	20	1	2022_spring	
+Cb	40	0	species_1	0	7	0	2	8	50	80	40	1	0	0	1	5	10	10	0.5	2022_spring	
+Ra	40	0	species_2	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Pm	40	0	species_3	0	0	0	0	0	0	#DIV/0!	#DIV/0!	0	0	0	0	0	0	#DIV/0!	#DIV/0!	2022_spring	no plantago
+Cb	40	1	species_1	0	3	0	0	3	40	30	12	0	0	0	0	0	10	0	0	2022_spring	
+Ra	40	1	species_2	0	0	0	1	1	1	10	0.1	0	0	0	0	0	10	0	0	2022_spring	
+Pm	40	1	species_3	0	0	0	0	0	0	#DIV/0!	#DIV/0!	0	0	0	0	0	0	#DIV/0!	#DIV/0!	2022_spring	no plantago
+Fr	41	0	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Pt	41	0	species_2	0	0	0	5	5	40	50	20	0	0	0	0	0	10	0	0	2022_spring	
+Cb	41	0	species_3	0	3	0	2	5	50	50	25	0	0	0	0	0	10	0	0	2022_spring	
+Fr	41	1	species_1	0	0	0	1	1	1	10	0.1	0	0	0	0	0	10	0	0	2022_spring	
+Pt	41	1	species_2	0	0	0	0	0	0	#DIV/0!	#DIV/0!	0	0	0	0	0	0	#DIV/0!	#DIV/0!	2022_spring	no poa
+Cb	41	1	species_3	0	6	0	0	6	50	60	30	0	1	0	1	35	10	10	3.5	2022_spring	
+Be	42	0	species_1	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Hl	42	0	species_2	0	0	0	2	2	5	20	1	0	0	0	0	0	10	0	0	2022_spring	
+Pt	42	0	species_3	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Be	42	1	species_1	0	0	0	0	0	0	0	0	0	3	0	3	5	10	30	1.5	2022_spring	
+Hl	42	1	species_2	0	0	0	1	1	10	10	1	1	0	0	1	1	10	10	0.1	2022_spring	
+Pt	42	1	species_3	0	0	0	0	0	0	#DIV/0!	#DIV/0!	0	0	0	0	0	0	#DIV/0!	#DIV/0!	2022_spring	no poa
+Lp	43	0	species_1	0	0	0	8	8	45	80	36	0	1	0	1	10	10	10	1	2022_spring	
+Cb	43	0	species_2	0	1	0	2	2	5	20	1	2	0	0	2	1	10	20	0.2	2022_spring	
+Dc	43	0	species_3	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Lp	43	1	species_1	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Cb	43	1	species_2	0	3	0	1	4	10	40	4	0	2	0	2	1	10	20	0.2	2022_spring	
+Dc	43	1	species_3	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Lp	44	0	species_1	0	0	0	10	10	10	100	10	0	0	0	0	0	10	0	0	2022_spring	
+Cb	44	0	species_2	0	0	0	1	1	5	10	0.5	1	2	0	2	5	10	20	1	2022_spring	
+Ra	44	0	species_3	0	0	0	2	2	5	20	1	0	0	0	0	0	10	0	0	2022_spring	
+Lp	44	1	species_1	0	0	0	3	3	5	30	1.5	0	0	0	0	0	10	0	0	2022_spring	
+Cb	44	1	species_2	1	5	0	1	7	20	70	14	0	2	0	2	5	10	20	1	2022_spring	
+Ra	44	1	species_3	0	0	0	3	3	5	30	1.5	0	0	0	0	0	10	0	0	2022_spring	
+Fr	45	0	species_1	0	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+Hl	45	0	species_2	0	0	0	7	7	10	70	7	0	0	0	0	0	10	0	0	2022_spring	
+Sp	45	0	species_3	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Fr	45	1	species_1	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	
+Hl	45	1	species_2	0	0	0	6	6	10	60	6	0	0	0	0	0	10	0	0	2022_spring	
+Sp	45	1	species_3	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Be	46	0	species_1	0	0	0	10	10	5	100	5	0	4	0	4	5	10	40	2	2022_spring	
+Lp	46	0	species_2	1	0	0	10	10	10	100	10	0	0	0	0	0	10	0	0	2022_spring	
+Dc	46	0	species_3	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Be	46	1	species_1	0	0	0	10	10	1	100	1	0	0	0	0	0	10	0	0	2022_spring	
+Lp	46	1	species_2	0	0	0	10	10	5	100	5	0	1	0	1	10	10	10	1	2022_spring	
+Dc	46	1	species_3	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+Fr	47	0	species_1	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Lp	47	0	species_2	0	0	0	9	9	5	90	4.5	0	0	0	0	0	10	0	0	2022_spring	
+Pt	47	0	species_3	0	0	0	7	7	1	70	0.7	0	0	0	0	0	10	0	0	2022_spring	
+Fr	47	1	species_1	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Lp	47	1	species_2	0	0	0	10	10	5	100	5	0	0	0	0	0	10	0	0	2022_spring	
+Pt	47	1	species_3	0	0	0	4	4	1	40	0.4	0	0	0	0	0	10	0	0	2022_spring	
+Pg	48	0	species_1	0	0	0	1	1	5	10	0.5	0	0	0	0	0	10	0	0	2022_spring	
+Ra	48	0	species_2	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+Pm	48	0	species_3	0	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+Pg	48	1	species_1	0	0	0	1	1	1	10	0.1	1	0	0	1	5	10	10	0.5	2022_spring	
+Ra	48	1	species_2	0	0	0	3	3	1	30	0.3	1	0	0	1	5	10	10	0.5	2022_spring	
+Pm	48	1	species_3	0	0	0	0	0	0	0	0	1	0	0	1	5	10	10	0.5	2022_spring	
+Pg	49	0	species_1	0	0	0	5	5	5	50	2.5	0	0	0	0	0	10	0	0	2022_spring	
+	49	0	species_2																	2022_spring	
+	49	0	species_3																	2022_spring	
+Pg	49	1	species_1	0	0	0	2	2	5	20	1	0	3	0	3	5	10	30	1.5	2022_spring	
+	49	1	species_2																	2022_spring	
+	49	1	species_3																	2022_spring	
+Sp	50	0	species_1	0	0	0	7	7	5	70	3.5	2	0	0	2	5	10	20	1	2022_spring	
+	50	0	species_2																	2022_spring	
+	50	0	species_3																	2022_spring	
+Sp	50	1	species_1	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+	50	1	species_2																	2022_spring	
+	50	1	species_3																	2022_spring	
+Cb	51	0	species_1	0	1	0	6	6	10	60	6	0	0	0	0	0	10	0	0	2022_spring	
+	51	0	species_2																	2022_spring	
+	51	0	species_3																	2022_spring	
+Cb	51	1	species_1	0	8	0	1	8	40	80	32	0	0	0	0	0	10	0	0	2022_spring	
+	51	1	species_2																	2022_spring	
+	51	1	species_3																	2022_spring	
+Dc	52	0	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+	52	0	species_2																	2022_spring	
+	52	0	species_3																	2022_spring	
+Dc	52	1	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+	52	1	species_2																	2022_spring	
+	52	1	species_3																	2022_spring	
+Fr	53	0	species_1	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+	53	0	species_2																	2022_spring	
+	53	0	species_3																	2022_spring	
+Fr	53	1	species_1	0	0	0	3	3	5	30	1.5	0	1	0	1	1	10	10	0.1	2022_spring	
+	53	1	species_2																	2022_spring	
+	53	1	species_3																	2022_spring	
+Hl	54	0	species_1	0	0	0	2	2	1	20	0.2	0	1	0	1	1	10	10	0.1	2022_spring	
+	54	0	species_2																	2022_spring	
+	54	0	species_3																	2022_spring	
+Hl	54	1	species_1	0	0	0	3	3	1	30	0.3	0	0	0	0	0	10	0	0	2022_spring	
+	54	1	species_2																	2022_spring	
+	54	1	species_3																	2022_spring	
+Lp	55	0	species_1	0	0	0	10	10	10	100	10	0	0	0	0	0	10	0	0	2022_spring	
+	55	0	species_2																	2022_spring	
+	55	0	species_3																	2022_spring	
+Lp	55	1	species_1	0	0	0	5	5	1	50	0.5	0	1	0	1	5	10	10	0.5	2022_spring	
+	55	1	species_2																	2022_spring	
+	55	1	species_3																	2022_spring	
+Pm	56	0	species_1	0	0	0	5	5	5	50	2.5	0	0	0	0	0	10	0	0	2022_spring	
+	56	0	species_2																	2022_spring	
+	56	0	species_3																	2022_spring	
+Pm	56	1	species_1	0	0	0	2	2	1	20	0.2	0	2	0	2	1	10	20	0.2	2022_spring	
+	56	1	species_2																	2022_spring	
+	56	1	species_3																	2022_spring	
+Pt	57	0	species_1	0	0	0	6	6	5	60	3	0	0	0	0	0	10	0	0	2022_spring	
+	57	0	species_2																	2022_spring	
+	57	0	species_3																	2022_spring	
+Pt	57	1	species_1	0	0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	2022_spring	
+	57	1	species_2																	2022_spring	
+	57	1	species_3																	2022_spring	
+Be	58	0	species_1	0	0	0	6	6	1	60	0.6	0	0	0	0	0	10	0	0	2022_spring	
+	58	0	species_2																	2022_spring	
+	58	0	species_3																	2022_spring	
+Be	58	1	species_1	 -   	 -   	 -   	1	1	1	10	0.1	0	1	0	1	5	10	10	0.5	2022_spring	
+	58	1	species_2																	2022_spring	
+	58	1	species_3																	2022_spring	
+Ra	59	0	species_1	0	0	0	2	2	1	20	0.2	0	0	0	0	0	10	0	0	2022_spring	
+	59	0	species_2																	2022_spring	
+	59	0	species_3																	2022_spring	
+Ra	59	1	species_1	0	0	0	2	2	1	20	0.2	2	0	0	2	1	10	20	0.2	2022_spring	
+	59	1	species_2																	2022_spring	
+	59	1	species_3																	2022_spring	
+To	60	0	species_1	0	2	0	6	7	5	70	3.5	0	2	0	2	5	10	20	1	2022_spring	
+	60	0	species_2																	2022_spring	
+	60	0	species_3																	2022_spring	
+To	60	1	species_1	0	3	0	3	5	5	50	2.5	2	0	0	2	5	10	20	1	2022_spring	
+	60	1	species_2																		
+	60	1	species_3																		

@@ -1,0 +1,193 @@
+---
+title: "Calculate structural coexistence for selected communities"
+format: html
+editor: visual
+---
+
+## Load the necessary functions
+
+```{r}
+source("structural coexistence functions/structural_coexistence_functions.R")
+```
+
+## Load the species list, the alphas and the intrinsic growth rates vectors
+
+```{r}
+plot_information <- read.table("data/plot_info.txt", sep = "\t", header = T)
+
+alpha_control <- read.table("data/species alphas and lambdas/biommatrix_all_2020_control.txt", sep = "\t", header = T)
+SE_alpha_control <- read.table("data/species alphas and lambdas/SE_biommatrix_all_2020_control.txt", sep = "\t", header = T)
+alpha_control <- alpha_control / SE_alpha_control
+
+alpha_nitrogen <- read.table("data/species alphas and lambdas/biommatrix_all_2020_nitrogen.txt", sep = "\t", header = T)
+SE_alpha_nitrogen <- read.table("data/species alphas and lambdas/SE_biommatrix_all_2020_nitrogen.txt", sep = "\t", header = T)
+alpha_nitrogen <- alpha_nitrogen / SE_alpha_nitrogen
+
+lambda_control <- read.table("data/species alphas and lambdas/biomintrinsic_all_2020_control.txt", sep = "\t", header = T)
+lambda_control <- exp(lambda_control) / 1000
+lambda_nitrogen <- read.table("data/species alphas and lambdas/biomintrinsic_all_2020_nitrogen.txt", sep = "\t", header = T)
+lambda_nitrogen <- exp(lambda_nitrogen) / 1000
+```
+
+## Run the structural coexistence on the species list (not all possible combinations)
+
+```{r}
+size <- seq(1, 1, 1)
+
+# control
+treatment <- "control"
+year <- "2020"
+
+
+# matrices for computing
+alpha <- list()
+lambda <- list()
+comb <- list()
+conditions <- list()
+for (i in 1:length(size)) {
+  alpha[[i]] <- -alpha_control
+  lambda[[i]] <- lambda_control
+  comb[[i]] <- as.data.frame(plot_information[, 2:4])
+  conditions[[i]] <- "control"
+}
+
+
+# set parallel computation
+numCores <- detectCores() # number of cores in your computer
+#registerDoParallel(numCores - 4) # important: define parallel computation to numCores
+
+
+# compute structural coexistence to 3 species and shape results' dataframe
+richness <- 3
+spp <- foreach(i = 1:length(alpha), .combine = rbind, .packages = "mvtnorm") %dopar% {
+  structural_coex(
+    alpha = alpha[[i]], intrinsic = lambda[[i]],
+    n = richness, combination = comb[[i]],
+    list_names = conditions[[i]]
+  )
+}
+
+s <- NULL # size for the results' dataframe
+for (k in 1:length(size)) {
+  s <- c(s, rep(size[k], nrow(spp) / 1))
+}
+
+r <- data.frame(
+  "treatment" = rep(treatment, nrow(spp)), "species" = spp$combos, "richness" = rep(richness, nrow(spp)),
+  "year" = rep(year, nrow(spp)), "Omega" = spp$Omega, "theta" = spp$theta, "feasibility" = spp$feasibility,
+  "differential" = spp$differential, "overlap" = spp$overlap, "coex_rate" = spp$coex_rate, "min_dist_exclusion" = spp$distance_to_exclusion
+)
+
+r <- r %>%
+  mutate_at(c("Omega", "theta", "feasibility", "differential", "overlap", "coex_rate", "min_dist_exclusion"), as.numeric)
+
+# nitrogen
+treatment <- "nitrogen"
+year <- "2020"
+
+
+# matrices for computing
+alpha <- list()
+lambda <- list()
+comb <- list()
+conditions <- list()
+for (i in 1:length(size)) {
+  alpha[[i]] <- -alpha_nitrogen
+  lambda[[i]] <- lambda_nitrogen
+  comb[[i]] <- as.data.frame(plot_information[, 2:4])
+  conditions[[i]] <- "nitrogen"
+}
+
+
+# set parallel computation
+# numCores <- detectCores() #number of cores in your computer
+# registerDoParallel(numCores-6) #important: define parallel computation to numCores
+
+
+# compute structural coexistence to 3 species and shape results' dataframe
+richness <- 3
+spp <- foreach(i = 1:length(alpha), .combine = rbind, .packages = "mvtnorm") %dopar% {
+  structural_coex(
+    alpha = alpha[[i]], intrinsic = lambda[[i]],
+    n = richness, combination = comb[[i]],
+    list_names = conditions[[i]]
+  )
+}
+
+s <- NULL # size for the results' dataframe
+for (k in 1:length(size)) {
+  s <- c(s, rep(size[k], nrow(spp) / 1))
+}
+
+rn <- data.frame(
+  "treatment" = rep(treatment, nrow(spp)), "species" = spp$combos, "richness" = rep(richness, nrow(spp)),
+  "year" = rep(year, nrow(spp)), "Omega" = spp$Omega, "theta" = spp$theta, "feasibility" = spp$feasibility,
+  "differential" = spp$differential, "overlap" = spp$overlap, "coex_rate" = spp$coex_rate, "min_dist_exclusion" = spp$distance_to_exclusion
+)
+
+rn <- rn %>%
+  mutate_at(c("Omega", "theta", "feasibility", "differential", "overlap", "coex_rate", "min_dist_exclusion"), as.numeric)
+
+rall <- merge(r, rn, by = "species")
+```
+
+## Comparison with logged intrinsic growth rates
+
+```{r}
+structural_coexistence <- read.table("data/structural_coexistence_experimental_design.txt", sep = "\t", header = T)
+
+structural_coexistence_control <- subset(structural_coexistence, structural_coexistence$nitrogen == 0)
+
+structural_coexistence_control$non.logged.min.distance <- r$min_dist_exclusion
+structural_coexistence_control$non.logged.omega <- r$Omega
+structural_coexistence_control$non.logged.differential <- r$differential
+structural_coexistence_control$non.logged.feasability <- r$feasibility
+structural_coexistence_control$non.logged.theta <- r$theta
+
+structural_coexistence_nitrogen <- subset(structural_coexistence, structural_coexistence$nitrogen == 1)
+
+structural_coexistence_nitrogen$non.logged.min.distance <- rn$min_dist_exclusion
+structural_coexistence_nitrogen$non.logged.omega <- rn$Omega
+structural_coexistence_nitrogen$non.logged.differential <- rn$differential
+structural_coexistence_nitrogen$non.logged.feasability <- rn$feasibility
+structural_coexistence_nitrogen$non.logged.theta <- rn$theta
+
+structural_coexistence_all <- rbind(structural_coexistence_control, structural_coexistence_nitrogen)
+structural_coexistence_all <- structural_coexistence_all %>%
+  arrange(plot)
+structural_coexistence_all$non.logged.min.distance[structural_coexistence_all$non.logged.feasability == 0] <- -(structural_coexistence_all$non.logged.min.distance[structural_coexistence_all$non.logged.feasability == 0])
+
+mycol<-ghibli_palettes$LaputaMedium[c(2,6,7)]
+mycol<-as.character(mycol)
+structural_coexistence_all$nitrogen<-as.factor(structural_coexistence_all$nitrogen)
+
+ggplot(structural_coexistence_all, aes(x=omega, y=differential))+
+  facet_wrap(~nitrogen)+     
+  geom_smooth(method = "lm", color="#D9AEAB", fill="gray90", linewidth=0.7, linetype="dashed")+
+  geom_point(aes(color=non.logged.min.distance, shape=nitrogen), size=2)+
+  scale_color_gradient2("Min. distance to exclusion",low=mycol[1], mid = mycol[2], high = mycol[3])+
+  theme_classic()+
+  xlab("Structural niche difference")+
+  ylab("Indirect interaction")
+
+#more plot! 
+intransitiv<-data.frame(overlap=c(r$overlap, rn$overlap),differential= c(r$differential, rn$differential), nitrogen=c(r$treatment,rn$treatment))
+
+ggplot(data=intransitiv, aes(x=differential, y=overlap, shape=nitrogen, color=nitrogen))+
+  geom_point(size=3)+
+  geom_point(aes(x=mean(r$differential), y=mean(r$overlap)),color="black", shape=19, size =4)+
+  geom_point(aes(x=mean(rn$differential), y=mean(rn$overlap)),color="black", shape=17, size =4)+
+  theme_classic()
+
+structural_coexistence_control<-subset(structural_coexistence_all, structural_coexistence_all$nitrogen==0)
+structural_coexistence_nitrogen<-subset(structural_coexistence_all, structural_coexistence_all$nitrogen==1)
+
+difference<-data.frame(delta.differential=abs(rn$differential-r$differential),
+                       delta.overlap=abs(rn$overlap-r$overlap))
+
+model<-lm(delta.overlap~delta.differential,data=difference)
+summary(model)
+plot(difference$delta.overlap~difference$delta.differential)
+
+save.image("data/structural_coexistence_image.Rdata")
+```

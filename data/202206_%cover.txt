@@ -1,0 +1,121 @@
+plot_ID	Treatment	species 1	species 2	species 3	Be	Cb	Dc	Fr	Hl	Lp	Pg	Pm	Pt	Ra	Sp	To	grasses	herbs	legumes	total cover	bare ground	date
+1	C	To	Dc	Ra			3							45		45	0	2	1	126	30	June
+1	N	To	Dc	Ra			2							85		20	1	1	0	109	0	June
+2	C	Cb	Dc	Pg		25	1				75						0	0	1	104	2	June
+2	N	Cb	Dc	Pg		15	5				85						0	5	2	112	0	June
+3	C	Fr	Hl	Ra				30	10					50			0	0	10	105	5	June
+3	N	Fr	Hl	Ra				55	15					55			0	0	2	127	0	June
+4	C	Lp	Pt	Dc			15			70			7				0	0	4	106	10	June
+4	N	Lp	Pt	Dc			15			80			5				1	10	1	114	2	June
+5	C	Be	Hl	Dc	20		30		40								0	15	1	116	10	June
+5	N	Be	Hl	Dc	80		20		25								0	5	0	130	0	June
+6	C	Fr	To	Ra				15						75		10	0	1	1	104	2	June
+6	N	Fr	To	Ra				40						80		5	1	0	0	126	0	June
+7	C	Lp	Cb	Sp		25				70					4		0	4	1	114	10	June
+7	N	Lp	Cb	Sp		40				75					3		1	0	0	119	0	June
+8	C	Pt	Dc	Sp			50						12		50		0	1	1	114	0	June
+8	N	Pt	Dc	Sp			55						15		60		0	0	0	135	5	June
+9	C	Fr	Pt	Pm				40				30	10				0	1	2	108	25	June
+9	N	Fr	Pt	Pm				80				30	0				0	2	3	135	20	June
+10	C	Be	To	Dc	65		20									35	2	0	12	141	7	June
+10	N	Be	To	Dc	70		10									25	1	3	4	113	0	June
+11	C	Pt	Cb	Sp		85							3		2		0	0	5	105	10	June
+11	N	Pt	Cb	Sp		100							5		5		0	0	1	111	0	June
+12	C	Be	Fr	Dc	15		35	40									1	3	3	112	15	June
+12	N	Be	Fr	Dc	25		12	75									1	5	3	128	7	June
+13	C	Be	Hl	To	30				35							30	1	3	7	111	5	June
+13	N	Be	Hl	To	40				15							40	5	0	5	105	0	June
+14	C	Sp	Ra	Pm								20		65	30		0	0	2	124	7	June
+14	N	Sp	Ra	Pm								15		90	12		0	5	2	124	0	June
+15	C	Be	Pg	Ra	15						35			85			1	0	1	142	5	June
+15	N	Be	Pg	Ra	15						25			90			0	2	0	132	0	June
+16	C	Be	Pt	Pm	40							50	2				0	0	1	103	10	June
+16	N	Be	Pt	Pm	50							55	5				0	2	1	116	3	June
+17	C	Be	Pt	To	40								10			15	0	1	0	106	40	June
+17	N	Be	Pt	To	40								10			45	5	3	0	105	2	June
+18	C	Be	Cb	Ra	5	25								60			3	0	2	102	7	June
+18	N	Be	Cb	Ra	4	40								80			2	2	3	131	0	June
+19	C	Cb	To	Ra		50								40		5	0	0	4	119	20	June
+19	N	Cb	To	Ra		60								60		4	1	2	0	127	0	June
+20	C	Pt	Dc	Pg			15				75		5				1	1	0	117	20	June
+20	N	Pt	Dc	Pg			10				85		30				0	2	1	133	5	June
+21	C	Pt	Cb	Ra		10							5	85			0	2	7	119	10	June
+21	N	Pt	Cb	Ra		10							7	95			2	1	2	117	0	June
+22	C	Cb	To	Pm		65						15				7	0	1	3	106	15	June
+22	N	Cb	To	Pm		100						20				7	1	3	2	138	5	June
+23	C	Lp	To	Ra						60				35		3	3	4	1	121	15	June
+23	N	Lp	To	Ra						40				55		6	15	4	0	120	0	June
+24	C	Be	Pt	Pg	30						80		8				0	1	0	119	0	June
+24	N	Be	Pt	Pg	35						85		2				2	1	0	125	0	June
+25	C	Be	Ra	Pm	55							3		30			1	0	0	104	15	June
+25	N	Be	Ra	Pm	60							15		75			5	3	0	158	0	June
+26	C	Fr	Hl	To				20	50							10	2	4	3	109	20	June
+26	N	Fr	Hl	To				20	95							15	0	0	3	133	0	June
+27	C	Hl	Sp	Pg					60		60				4		0	0	2	131	5	June
+27	N	Hl	Sp	Pg					60		80				1		1	10	3	155	0	June
+28	C	Fr	Hl	Dc			25	10	50								0	2	4	121	30	June
+28	N	Fr	Hl	Dc			25	35	60								0	3	1	124	0	June
+29	C	Hl	Lp	Ra					60	20				50			0	3	0	133	0	June
+29	N	Hl	Lp	Ra					30	20				75			1	0	0	126	0	June
+30	C	Fr	Ra	Pm				15				7		80			1	0	3	121	15	June
+30	N	Fr	Ra	Pm				12				15		120			0	0	0	150	3	June
+31	C	Pt	Pg	Ra							15		7	100			0	1	0	123	0	June
+31	N	Pt	Pg	Ra							8		12	150			0	4	0	174	0	June
+32	C	Be	Pt	Sp	15								15		85		0	0	0	120	5	June
+32	N	Be	Pt	Sp	10								8		95		4	0	0	119	2	June
+33	C	Be	Sp	Ra	30									35	15		0	0	0	105	25	June
+33	N	Be	Sp	Ra	20									80	15		0	0	0	115	0	June
+34	C	Fr	Pt	Sp				70					1		50		1	5	0	137	10	June
+34	N	Fr	Pt	Sp				90					0		30		2	7	0	134	5	June
+35	C	Hl	Pt	Ra					35				4	70			0	0	0	124	15	June
+35	N	Hl	Pt	Ra					45				3	95			0	2	0	145	0	June
+36	C	Fr	To	Dc			2	80								10	0	3	0	120	25	June
+36	N	Fr	To	Dc			5	100								15	0	1	0	126	5	June
+37	C	Lp	Cb	Pg		85				15	3						2	5	0	122	12	June
+37	N	Lp	Cb	Pg		100				12	3						0	5	0	124	4	June
+38	C	Hl	Pg	Pm					35		65	0					0	2	0	112	10	June
+38	N	Hl	Pg	Pm					50		65	6					0	2	0	123	0	June
+39	C	Be	Fr	To	20			50								20	4	0	2	121	25	June
+39	N	Be	Fr	To	6			50								40	10	5	0	131	20	June
+40	C	Cb	Ra	Pm		20						0		70			0	0	0	92	2	June
+40	N	Cb	Ra	Pm		65						0		65			0	1	0	131	0	June
+41	C	Fr	Pt	Cb		45		30					1				1	0	0	112	35	June
+41	N	Fr	Pt	Cb		65		70					1				3	2	0	146	5	June
+42	C	Be	Hl	Pt	7				100				1				0	2	3	125	12	June
+42	N	Be	Hl	Pt	6				110				0				2	5	3	136	10	June
+43	C	Lp	Cb	Dc		70	35			20							3	2	0	140	10	June
+43	N	Lp	Cb	Dc		75	15			35							5	2	0	137	5	June
+44	C	Lp	Cb	Ra		10				65				30			4	2	0	116	5	June
+44	N	Lp	Cb	Ra		12				55				45			2	4	0	118	0	June
+45	C	Fr	Hl	Sp				12	75						20		0	2	0	114	5	June
+45	N	Fr	Hl	Sp				40	40						10		0	3	0	98	5	June
+46	C	Be	Lp	Dc	30		35			40							1	3	2	121	10	June
+46	N	Be	Lp	Dc	35		50			60							3	5	0	153	0	June
+47	C	Fr	Lp	Pt				3		110			5				2	1	3	134	10	June
+47	N	Fr	Lp	Pt				3		125			2				0	3	1	138	4	June
+48	C	Pg	Ra	Pm							10	3		105			0	0	0	118	0	June
+48	N	Pg	Ra	Pm							5	3		150			0	0	0	158	0	June
+49	C	Pg	-	-							90						0	0	0	100	10	June
+49	N	Pg	-	-							130						0	2	0	132	0	June
+50	C	Sp	-	-											95		0	3	0	105	7	June
+50	N	Sp	-	-											135		0	1	0	136	0	June
+51	C	Cb	-	-		65											0	0	0	100	35	June
+51	N	Cb	-	-		140											1	0	0	141	0	June
+52	C	Dc	-	-			35										0	30	0	100	35	June
+52	N	Dc	-	-			25										2	40	0	92	25	June
+53	C	Fr	-	-				100									0	0	0	120	20	June
+53	N	Fr	-	-				150									0	0	0	158	8	June
+54	C	Hl	-	-					85								0	3	0	123	35	June
+54	N	Hl	-	-					85								0	1	0	121	35	June
+55	C	Lp	-	-						80							5	1	1	102	15	June
+55	N	Lp	-	-						120							10	3	0	135	2	June
+56	C	Pm	-	-								90					1	1	0	102	10	June
+56	N	Pm	-	-								150					1	1	0	152	0	June
+57	C	Pt	-	-									85				0	2	0	102	15	June
+57	N	Pt	-	-									100				2	3	0	107	2	June
+58	C	Be	-	-	85												3	1	0	104	15	June
+58	N	Be	-	-	100												3	1	0	109	5	June
+59	C	Ra	-	-										110			0	0	0	110	0	June
+59	N	Ra	-	-										150			0	6	0	156	0	June
+60	C	To	-	-												95	0	0	0	105	10	June
+60	N	To	-	-												100	0	2	2	109	5	June
