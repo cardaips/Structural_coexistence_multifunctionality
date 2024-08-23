@@ -1,31 +1,34 @@
 # R Code attached to "Stably coexisting communities deliver higher ecosystem multifunctionality" ####
-## author: Caroline Daniel
+## code author: Caroline Daniel
 ## contact: caroline.daniel@unibe.ch
 
-### Part 1 - compute individual functions and analyse the relationship with 
+### Part 1 - compute individual functions and analyse the relationship with
 ### structural coexistence measure
 
 # renv loading and library ####
 renv::restore()
-library(dplyr) #for efficient data wrangling
-library(corrplot) #to check correlations between functions
-library(modelsummary) #to easily present model outputs
-library(ggplot2) #beautiful figures of course
-library(lme4) #linear model packages
-library(devtools) #to manipulate lme4 in order to hack the random factors
-library(reshape) #just another efficient data wrangling 
-library(ghibli) #nice colors package
-library(broom.mixed) #mixed model package
-library(stringr) #easy strings manipulation
-library(effects) #aesthetic package
-library(ggpubr) #complements ggplot2
-library(scales) #complements ggplot2
+library(dplyr) # for efficient data wrangling
+library(corrplot) # to check correlations between functions
+library(modelsummary) # to easily present model outputs
+library(ggplot2) # beautiful figures, of course
+library(lme4) # linear model packages
+library(devtools) # to manipulate lme4 in order to hack the random factors
+library(reshape) # just another efficient data wrangling package
+library(ghibli) # nice colors package
+library(broom.mixed) # mixed model package
+library(stringr) # easy strings manipulation
+library(effects) # aesthetic package
+library(ggpubr) # complements ggplot2
+library(scales) # complements ggplot2
+library(styler) # standardized code syntax, make it pretty!
 
 # loading function from anisoFun package manually
 ## These functions come from Allen-Perkin et al. 2023, Ecology Letters,  doi: https://doi.org/10.1111/ele.14291
 files.sources <- list.files(paste(getwd(), "/anisoFun functions", sep = ""))
 files.sources <- paste("anisoFun functions/", files.sources, sep = "")
 sapply(files.sources, source)
+# source the multimembership random factor model function
+source("multimembership_function.R")
 
 # we need to compile the following functions in a common dataset:
 
@@ -156,9 +159,9 @@ for (i in 1:nrow(plot_damage)) {
   plot_cover_selection <- subset(plot_cover_selection, plot_cover_selection$nitrogen == plot_damage$nitrogen[i])
   plot_cover_selection <- plot_cover_selection[order(plot_cover_selection$species), ]
   plot_cover_selection <- subset(plot_cover_selection, (plot_cover_selection$species %in% plot_selection$species))
-  plot_cover_selection <- plot_cover_selection[order(plot_cover_selection$species),]
+  plot_cover_selection <- plot_cover_selection[order(plot_cover_selection$species), ]
   plot_selection <- subset(plot_selection, (plot_selection$species %in% plot_cover_selection$species))
-  plot_selection <- plot_selection[order(plot_selection$species),]
+  plot_selection <- plot_selection[order(plot_selection$species), ]
   fungi_damage <- sum(plot_selection$perc_dmg_fung * plot_cover_selection$percentage.cover)
   herbi_damage <- sum(plot_selection$perc_dmg * plot_cover_selection$percentage.cover)
   plot_damage$fungi_damage[i] <- fungi_damage
@@ -201,29 +204,29 @@ data_multi <- merge(data_multi, plot_information, all = T)
 
 data_all_triplets <- read.table("data/all_triplets_experiment.txt", header = T, sep = "\t")
 
-#here I plot the structural coexistence 
-plota <- ggplot(data_all_triplets)+
-  geom_point(aes(x=Omega, y=differential), alpha = 0.15)+
-  geom_point(data= structural_coexistence_all, aes(x=omega, y=differential, color = non.logged.min.distance), size=2)+
-  xlab("structural niche differences")+
-  ylab("indirect interactions")+
-  scale_color_gradient2(low="darkblue",mid = "beige", high="darkred")+
+# here I plot the structural coexistence
+plota <- ggplot(data_all_triplets) +
+  geom_point(aes(x = Omega, y = differential), alpha = 0.15) +
+  geom_point(data = structural_coexistence_all, aes(x = omega, y = differential, color = non.logged.min.distance), size = 2) +
+  xlab("structural niche differences") +
+  ylab("indirect interactions") +
+  scale_color_gradient2(low = "darkblue", mid = "beige", high = "darkred") +
   theme_classic()
 
-plotb <- ggplot(data_all_triplets)+
-  geom_point(aes(x=Omega, y=theta), alpha = 0.15)+
-  geom_point(data= structural_coexistence_all, aes(x=omega, y=non.logged.theta, color = non.logged.min.distance), size=2)+
-  xlab("structural niche differences")+
-  ylab("structural fitness differences")+
-  scale_color_gradient2(low="darkblue",mid = "beige", high="darkred", name = "min. distance to exclusion")+
+plotb <- ggplot(data_all_triplets) +
+  geom_point(aes(x = Omega, y = theta), alpha = 0.15) +
+  geom_point(data = structural_coexistence_all, aes(x = omega, y = non.logged.theta, color = non.logged.min.distance), size = 2) +
+  xlab("structural niche differences") +
+  ylab("structural fitness differences") +
+  scale_color_gradient2(low = "darkblue", mid = "beige", high = "darkred", name = "min. distance to exclusion") +
   theme_classic()
 
-ggarrange(plotb,plota, common.legend = T)
+ggarrange(plotb, plota, common.legend = T)
 
 # model with multimembership random factor for individual functions ####
 ### Preparation for fancy models
 # create a fake species variable, we have 12 different species
-Species_fake <- rep(LETTERS[1:12], length.out = nrow(data_multi), each=2)
+Species_fake <- rep(LETTERS[1:12], length.out = nrow(data_multi), each = 2)
 data_multi$species <- Species_fake
 
 # create a presence/absence matrix
@@ -241,5 +244,42 @@ for (i in 1:nrow(data_multi)) {
 }
 
 pres_matrix[is.na(pres_matrix)] <- 0
-data_multi<-cbind(data_multi, pres_matrix)
+data_multi <- cbind(data_multi, pres_matrix)
 
+## individual functions in control, them multimembership models with minimum distance to exclusion
+### functions in control
+data_multi_control <- subset(data_multi, data_multi$nitrogen == 0)
+rownames(data_multi) <- NULL
+data_multi_control$species <- rep(LETTERS[1:12], length.out = nrow(data_multi_control))
+pres_matrix_control <- data_multi_control[, 24:35]
+
+# I need to scale the data just before running the models
+data_multi_control_scaled <- data_multi_control
+data_multi_control_scaled[, 3:19] <- scale(data_multi_control[, 3:19], center = T)
+
+# run the model with multimembership random factor
+function_names <- colnames(data_multi_control_scaled[, 3:9])
+all_models <- NULL
+
+for (i in 1:length(function_names)) {
+  formula <- paste(function_names[i], "~ non.logged.min.distance + (1 | species)", sep = " ")
+  multi_model <- multimembership_model(formula, pres_matrix_control, data_multi_control_scaled)
+  all_models <- c(all_models, multi_model)
+}
+
+names(all_models) <- function_names
+dist_plot <- plot_multi(all_models)
+dist_plot
+
+# now not only minimum distance to exclusion but models with all coexistence mechanisms
+all_models <- NULL
+
+for (i in 1:length(function_names)) {
+  formula <- paste(function_names[i], "~ (omega * differential) + non.logged.theta + non.logged.theta:omega + (1 | species)", sep = " ")
+  multi_model <- multimembership_model(formula, pres_matrix_control, data_multi_control_scaled)
+  all_models <- c(all_models, multi_model)
+}
+
+names(all_models) <- function_names
+coex_plot <- plot_multi(all_models)
+coex_plot
