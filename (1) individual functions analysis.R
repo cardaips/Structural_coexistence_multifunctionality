@@ -257,7 +257,7 @@ pres_matrix_control <- data_multi_control[, 24:35]
 data_multi_control_scaled <- data_multi_control
 data_multi_control_scaled[, 3:19] <- scale(data_multi_control[, 3:19], center = T)
 
-# run the model with multimembership random factor
+# run the model for all functions with multimembership random factor
 function_names <- colnames(data_multi_control_scaled[, 3:9])
 all_models <- NULL
 
