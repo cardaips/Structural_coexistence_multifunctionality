@@ -27,7 +27,7 @@ damage_mono$perc.cover <- cover_june_mono$percentage.cover
 damage_mono$fungi.cwm <- damage_mono$perc_dmg_fung * damage_mono$perc.cover
 damage_mono$herbivory.cwm <- damage_mono$perc_dmg * damage_mono$perc.cover
 
-#calculate the decomposition per monoculture plot
+# calculate the decomposition per monoculture plot
 decomposition_mono$difference <- decomposition_mono$mono.weight.before - decomposition_mono$mono.weight.after
 
 # average per monoculture the enzymatic activity
@@ -91,7 +91,7 @@ for (i in 1:nrow(all_functions_predicted)) {
   all_functions_predicted[i, ] <- plot_predicted
 }
 
-#I want to log it so I need to replace 0 with very small measure
+# I want to log it so I need to replace 0 with very small measure
 all_functions_predicted$herbivory_damage[all_functions_predicted$herbivory_damage == 0] <- 0.01
 
 # log what is not normally distributed
@@ -104,7 +104,7 @@ net_effect <- all_functions[3:9] - all_functions_predicted[3:9]
 corrplot(cor(net_effect), method = "number") # looks ok
 net_effect$plot <- all_functions$plot
 net_effect$nitrogen <- all_functions$nitrogen
-net_effect<-merge(net_effect, structural_coexistence_all)
+net_effect <- merge(net_effect, structural_coexistence_all)
 net_effect <- merge(net_effect, plot_information, all = T)
 
 net_effect <- cbind(net_effect, pres_matrix)

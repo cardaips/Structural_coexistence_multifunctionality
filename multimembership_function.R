@@ -14,7 +14,7 @@ multimembership_model <- function(formula, presence_matrix, data) {
   return(model)
 }
 
-# plotting the multimembership
+# plotting the multimembership so that model output look beautiful
 plot_multi <- function(model) {
   plot <- modelplot(model, coef_omit = "SD",
                     coef_rename = c("omega"="ND", 
