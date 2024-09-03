@@ -1,4 +1,6 @@
-# functions to run more efficiently the models with multimembership random factors
+# functions to run and predict more efficiently the models with multimembership random factors
+
+# run and plot the models ####
 
 multimembership_model <- function(formula, presence_matrix, data) {
   # Omega and differential only
@@ -16,19 +18,28 @@ multimembership_model <- function(formula, presence_matrix, data) {
 
 # plotting the multimembership so that model output look beautiful
 plot_multi <- function(model) {
-  plot <- modelplot(model, coef_omit = "SD",
-                    coef_rename = c("omega"="ND", 
-                                    "non.logged.theta"="FD",
-                                    "differential"="ID",
-                                    "non.logged.min.distance"="min. distance to exclusion",
-                                    "nitrogen1" = "Nitrogen")) +
+  plot <- modelplot(model,
+    coef_omit = "SD",
+    coef_rename = c(
+      "omega" = "ND",
+      "structural.niche" = "ND",
+      "non.logged.theta" = "FD",
+      "structural.fitness" = "FD",
+      "differential" = "ID",
+      "indirect.interactions" = "ID",
+      "non.logged.min.distance" = "min. distance to exclusion",
+      "min.distance" = "min. distance to exclusion",
+      "threshold.continuous" = "threshold",
+      "nitrogen1" = "Nitrogen"
+    )
+  ) +
     aes(
       shape = ifelse(p.value > 0.05,
         "Not significant",
         "Significant"
       ),
-      color="black"
-      ) +
+      color = "black"
+    ) +
     facet_grid(~model) +
     scale_shape_manual(
       name = "Significance",
@@ -36,9 +47,67 @@ plot_multi <- function(model) {
       labels = c("Not significant", "Significant"),
       drop = FALSE
     ) +
-    scale_color_manual(values = rep("black",length(model)))+
-    guides(colour="none")+
-  geom_vline(xintercept = 0, linetype = "dashed") +
+    scale_color_manual(values = rep("black", length(model))) +
+    guides(colour = "none") +
+    geom_vline(xintercept = 0, linetype = "dashed") +
     theme_minimal()
   return(plot)
+}
+
+# predict with the model ####
+
+#predict for minimum dstance to exclusion
+predict_multifunctionality_dist <- function(model, new.data) {
+  # useful prediction function
+  pfun <- function(.) {
+    predict(., newdata = new.data, re.form = ~0, type = "response")
+  }
+
+  # summarise output of bootstrapping
+  sumBoot <- function(merBoot) {
+    return(
+      data.frame(
+        fit = apply(merBoot$t, 2, function(x) as.numeric(quantile(x, probs = .5, na.rm = TRUE))),
+        lwr = apply(merBoot$t, 2, function(x) as.numeric(quantile(x, probs = .025, na.rm = TRUE))),
+        upr = apply(merBoot$t, 2, function(x) as.numeric(quantile(x, probs = .975, na.rm = TRUE)))
+      )
+    )
+  }
+
+  bootdata <- lme4::bootMer(model, pfun, nsim = 1000, type = "parametric")
+
+  sum <- sumBoot(bootdata)
+
+
+  new.data$fit <- sum$fit
+  new.data$lwr <- sum$lwr
+  new.data$upr <- sum$upr
+
+  return(new.data)
+}
+
+# predict for each coex mechanism
+predict_multifunctionality_coex <- function(model, new.data) {
+  # useful prediction function
+  pfun <- function(.) {
+    predict(., newdata = new.data, re.form = ~0, type = "response")
+  }
+
+  # summarise output of bootstrapping
+  sumBoot <- function(merBoot) {
+    return(
+      data.frame(
+        fit = apply(merBoot$t, 2, function(x) as.numeric(quantile(x, probs = .5, na.rm = TRUE))),
+        lwr = apply(merBoot$t, 2, function(x) as.numeric(quantile(x, probs = .025, na.rm = TRUE))),
+        upr = apply(merBoot$t, 2, function(x) as.numeric(quantile(x, probs = .975, na.rm = TRUE)))
+      )
+    )
+  }
+
+  bootdata <- lme4::bootMer(model, pfun, nsim = 100, type = "parametric")
+  sum <- sumBoot(bootdata)
+
+  new.data$fit <- sum$fit
+
+  return(new.data)
 }
