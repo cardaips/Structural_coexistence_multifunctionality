@@ -4,7 +4,7 @@
 
 ### Part 3 - Multifunctionality and coexistence mechanisms analysis in control
 
-# source previous file (cascading sourcing with (1))
+# source previous files (cascading sourcing with (1))
 source("(2) individual functions net effects.R")
 
 # calculate the percentage of each function compared to max ####

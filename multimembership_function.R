@@ -19,7 +19,7 @@ multimembership_model <- function(formula, presence_matrix, data) {
 # plotting the multimembership so that model output look beautiful
 plot_multi <- function(model) {
   plot <- modelplot(model,
-    coef_omit = "SD",
+    coef_omit = "SD|Intercept",
     coef_rename = c(
       "omega" = "ND",
       "structural.niche" = "ND",
@@ -49,14 +49,15 @@ plot_multi <- function(model) {
     ) +
     scale_color_manual(values = rep("black", length(model))) +
     guides(colour = "none") +
-    geom_vline(xintercept = 0, linetype = "dashed") +
-    theme_minimal()
+    geom_vline(xintercept = 0, linetype = "dashed", color = "blue") +
+    theme_minimal()+
+    theme(text= element_text(size = 15, family = "serif"))
   return(plot)
 }
 
 # predict with the model ####
 
-#predict for minimum dstance to exclusion
+# predict for minimum dstance to exclusion
 predict_multifunctionality_dist <- function(model, new.data) {
   # useful prediction function
   pfun <- function(.) {
