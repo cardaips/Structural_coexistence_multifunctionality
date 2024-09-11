@@ -6,3 +6,171 @@
 
 # source previous files (cascading sourcing with (1))
 source("(3) multifunctionality and coexistence.R")
+
+# calculate the percentage of each function compared to max ####
+data_net_effect_plot <- net_effect
+
+# biomass
+max_biomass <- head(data_net_effect_plot[order(-data_net_effect_plot$biomass), ], 5)
+max_biomass <- mean(max_biomass$biomass)
+data_net_effect_plot$relative.biomass <- data_net_effect_plot$biomass / max_biomass
+
+# beta_glucosidase
+max_betaglucosidase <- head(data_net_effect_plot[order(-data_net_effect_plot$betaglucosidase), ], 5)
+max_betaglucosidase <- mean(max_betaglucosidase$betaglucosidase)
+data_net_effect_plot$relative.betaglucosidase <- data_net_effect_plot$betaglucosidase / max_betaglucosidase
+
+# phosphatase
+max_phosphatase <- head(data_net_effect_plot[order(-data_net_effect_plot$phosphatase), ], 5)
+max_phosphatase <- mean(max_phosphatase$phosphatase)
+data_net_effect_plot$relative.phosphatase <- data_net_effect_plot$phosphatase / max_phosphatase
+
+# root_biomass
+max_root_biomass <- head(data_net_effect_plot[order(-data_net_effect_plot$root_biomass), ], 5)
+max_root_biomass <- mean(max_root_biomass$root_biomass)
+data_net_effect_plot$relative.root.biomass <- data_net_effect_plot$root_biomass / max_root_biomass
+
+# decomposition
+max_decomposition <- head(data_net_effect_plot[order(-data_net_effect_plot$decomposition), ], 5)
+max_decomposition <- mean(max_decomposition$decomposition)
+data_net_effect_plot$relative.decomposition <- data_net_effect_plot$decomposition / max_decomposition
+
+# fungi_damage
+data_net_effect_plot$fungi_damage <- data_net_effect_plot$fungi_damage + abs(min(data_net_effect_plot$fungi_damage))
+max_fungi_damage <- head(data_net_effect_plot[order(-data_net_effect_plot$fungi_damage), ], 5)
+max_fungi_damage <- mean(max_fungi_damage$fungi_damage)
+data_net_effect_plot$relative.fungi.damage <- data_net_effect_plot$fungi_damage / max_fungi_damage
+
+# herbivory_damage
+data_net_effect_plot$herbivory_damage <- data_net_effect_plot$herbivory_damage + abs(min(data_net_effect_plot$herbivory_damage))
+max_herbivory_damage <- head(data_net_effect_plot[order(-data_net_effect_plot$herbivory_damage), ], 5)
+max_herbivory_damage <- mean(max_herbivory_damage$herbivory_damage)
+data_net_effect_plot$relative.herbivory.damage <- data_net_effect_plot$herbivory_damage / max_herbivory_damage
+
+# compute percentage threshold for multifunctionality ####
+thresholds <- c(0, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8)
+data_net_effect_threshold <- matrix(ncol = length(thresholds), nrow = nrow(data_net_effect_plot))
+data_net_effect_threshold <- as.data.frame(data_net_effect_threshold)
+data_net_effect_threshold$plot <- data_net_effect_plot$plot
+data_net_effect_threshold$nitrogen <- data_net_effect_plot$nitrogen
+data_net_effect_threshold$species <- data_multi$species
+data_net_effect_threshold$structural.niche <- data_multi$omega
+data_net_effect_threshold$structural.fitness <- data_multi$non.logged.theta
+data_net_effect_threshold$indirect.interactions <- data_multi$differential
+data_net_effect_threshold$min.distance <- data_multi$non.logged.min.distance
+
+for (j in 1:length(thresholds)) {
+  step <- thresholds[j]
+  step_vector <- NULL
+  for (i in 1:nrow(data_net_effect_plot)) {
+    # how many function surpass the threshold?
+    percentage_multi <- sum(data_net_effect_plot[i, 35:41] >= step, na.rm = T) / 7
+    step_vector[i] <- percentage_multi
+  }
+  data_net_effect_threshold[, j] <- step_vector
+}
+
+# paste the name of the threshold in the columns of the data frame
+colnames(data_net_effect_threshold)[1:10] <- paste("threshold", as.character(thresholds), sep = "_")
+save_net_effect<-data_net_effect_threshold
+plot_net<-ggplot(data_net_effect_threshold, aes(x=threshold_0))+
+  geom_histogram(binwidth=0.1, color="grey18", fill= "grey18")+
+  xlab("percentage of functions with a positive net effect")+
+  ylab("number of plots")+
+  ggtitle("Net multifunctionality, threshold = 0")+
+  theme_classic()
+plot_net
+
+corrplot(cor(cbind(all_functions[,3:9], data_net_effect_threshold[,1:10])), method="number")
+
+# little plots
+par(mfrow = c(3, 3), mar=c(0.3,0.3,.3,0.3))
+hist(data_net_effect_threshold$threshold_0.4)
+hist(data_net_effect_threshold$threshold_0.45)
+hist(data_net_effect_threshold$threshold_0.5)
+hist(data_net_effect_threshold$threshold_0.55)
+hist(data_net_effect_threshold$threshold_0.6)
+hist(data_net_effect_threshold$threshold_0.65)
+hist(data_net_effect_threshold$threshold_0.7)
+hist(data_net_effect_threshold$threshold_0.75)
+hist(data_net_effect_threshold$threshold_0.8)
+
+# creating the reliability data to test how a different number of functions changes multifunctionality values ####
+#relative name of each function is registered
+func_vec<-colnames(data_net_effect_plot[,35:41])
+
+#loop init
+reliability_data_net_effect<-NULL
+
+thresholds_rel<-thresholds[thresholds!=0]
+for (l in 2:7){
+  #combination of i number of functions
+  combinations<-combn(func_vec,l)
+  
+  #creation of an empty data frame that will be repeated for each number of column of combination
+  data_net_effect_threshold_empty <- matrix(ncol = length(thresholds_rel), nrow = nrow(data_net_effect_plot))
+  data_net_effect_threshold_empty <- as.data.frame(data_net_effect_threshold_empty)
+  data_net_effect_threshold_empty<-cbind(data_net_effect_threshold_empty, data_net_effect_threshold[,11:17])
+  colnames(data_net_effect_threshold_empty)[1:9] <- paste("threshold", as.character(thresholds_rel), sep = "_")
+  #save the combination level
+  data_net_effect_threshold_empty$combination<-l
+  data_net_effect_threshold_empty<-cbind(data_net_effect_threshold_empty, pres_matrix)
+  data_net_effect_threshold_empty$iteration<-NA
+  data_net_effect_threshold_full<-data_net_effect_threshold_empty
+  
+  
+  for (k in 1:ncol(combinations)){
+    
+    for (j in 1:length(thresholds_rel)) {
+      step <- thresholds[j]
+      step_vector <- NULL
+      for (i in 1:nrow(data_net_effect_plot)) {
+        # I need to create a subset of data_net_effect_plot data frame with the combination in column k
+        func<-data_net_effect_plot[i,35:41]
+        func<-func[,combinations[,k]]
+        # how many function surpass the threshold?
+        percentage_multi <- sum(func >= step, na.rm = T) / l
+        step_vector[i] <- percentage_multi
+      }
+      data_net_effect_threshold_full[, j] <- step_vector
+    }
+    data_net_effect_threshold_full$iteration<-k
+    reliability_data_net_effect<-rbind(reliability_data_net_effect, data_net_effect_threshold_full)
+  }
+} #done!
+
+# now we need to transform the data in the long format
+
+data_net_effect_threshold <- cbind(data_net_effect_threshold, pres_matrix)
+data_net_effect_threshold$threshold_0<-NULL
+long_data_net_effect_threshold <- melt(data_net_effect_threshold, measure.vars = c(1:9))
+
+# threshold must be continuous
+long_data_net_effect_threshold[c("threshold", "threshold.continuous")] <- str_split_fixed(long_data_net_effect_threshold$variable, "_", 2)
+long_data_net_effect_threshold$threshold.continuous <- as.numeric(long_data_net_effect_threshold$threshold.continuous)
+
+# multifunctionality only in control
+long_data_net_effect_threshold_control <- subset(long_data_net_effect_threshold, long_data_net_effect_threshold$nitrogen == 0)
+rownames(long_data_net_effect_threshold_control) <- NULL
+long_data_net_effect_threshold_control$nitrogen <- NULL
+pres_matrix_long_control <- long_data_net_effect_threshold_control[, 7:18]
+
+long_data_net_effect_threshold_control_scaled <- long_data_net_effect_threshold_control
+long_data_net_effect_threshold_control_scaled[, c(3:6, 22)] <- scale(long_data_net_effect_threshold_control[, c(3:6, 22)], center = T)
+
+# now we can run the multimembership model in control
+# min distance
+formula <- "value ~ threshold.continuous*min.distance + (1 | species)"
+
+long_net_effect_model <- multimembership_model(formula, pres_matrix_long_control, long_data_net_effect_threshold_control_scaled)
+dist_net_effect_plot <- plot_multi(long_net_effect_model)
+
+dist_net_effect_plot
+
+# then all coexistence mechanisms
+formula <- "value ~ threshold.continuous * (structural.niche * indirect.interactions + structural.fitness + structural.fitness:structural.niche) + (1 | species)"
+
+long_net_effect_model_coex <- multimembership_model(formula, pres_matrix_long_control, long_data_net_effect_threshold_control_scaled)
+coex_net_effect_plot <- plot_multi(long_multi_model_coex)
+
+coex_net_effect_plot
