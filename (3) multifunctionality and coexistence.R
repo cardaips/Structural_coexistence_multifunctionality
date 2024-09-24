@@ -168,17 +168,17 @@ coex_multi_plot
 
 # predictions and figure plotting ####
 #minimum distance to exclusion first
-new.data<-expand.grid(min.distance=seq(min(long_data_multi_threshold_control_scaled$min.distance), 
-                                       max(long_data_multi_threshold_control_scaled$min.distance),
+new.data<-expand.grid(min.distance=seq(min(long_data_multi_threshold_control$min.distance), 
+                                       max(long_data_multi_threshold_control$min.distance),
                                        length.out=50),
-                      threshold.continuous=mean(long_data_multi_threshold_control_scaled$threshold.continuous),
+                      threshold.continuous=mean(long_data_multi_threshold_control$threshold.continuous),
                       species="A")
 
 formula <- "value ~ threshold.continuous*min.distance + (1 | species)"
 long_multi_model_pred <- multimembership_model(formula, pres_matrix_long_control, long_data_multi_threshold_control)
 
-pred_dist<-predict_multifunctionality_dist(model=long_multi_model, new.data=new.data)
-
+# here it's scaled values, I use the model that ran for the effect sizes
+pred_dist<-predict_multifunctionality_dist(model=long_multi_model_pred, new.data=new.data)
 
 plotdist<-ggplot(data=pred_dist, aes(x=min.distance,y=fit))+
   geom_line(size=0.8)+
@@ -210,9 +210,9 @@ new.data <- expand.grid(
 formula <- "value ~ threshold.continuous * (structural.niche * indirect.interactions + structural.fitness + structural.fitness:structural.niche) + (1 | species)"
 long_multi_model_coex_pred <- multimembership_model(formula, pres_matrix_long_control, long_data_multi_threshold_control)
 
-pred <- predict_multifunctionality_coex(model = long_multi_model_coex_pred, new.data = new.data)
+pred_nd_fd <- predict_multifunctionality_coex(model = long_multi_model_coex_pred, new.data = new.data)
 
-plot1 <- ggplot(data = pred, aes(x = structural.niche, y = structural.fitness)) +
+plot1 <- ggplot(data = pred_nd_fd, aes(x = structural.niche, y = structural.fitness)) +
   geom_tile(aes(fill = fit)) +
   geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = structural.fitness), size = 1.5, alpha = 0.035) +
   scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "multifunctionality") +

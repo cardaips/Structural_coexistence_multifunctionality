@@ -171,6 +171,90 @@ dist_net_effect_plot
 formula <- "value ~ threshold.continuous * (structural.niche * indirect.interactions + structural.fitness + structural.fitness:structural.niche) + (1 | species)"
 
 long_net_effect_model_coex <- multimembership_model(formula, pres_matrix_long_control, long_data_net_effect_threshold_control_scaled)
-coex_net_effect_plot <- plot_multi(long_multi_model_coex)
+coex_net_effect_plot <- plot_multi(long_net_effect_model_coex)
 
 coex_net_effect_plot
+
+# predictions and figure plotting for net effects####
+#minimum distance to exclusion first
+new.data<-expand.grid(min.distance=seq(min(long_data_net_effect_threshold_control$min.distance), 
+                                       max(long_data_net_effect_threshold_control$min.distance),
+                                       length.out=50),
+                      threshold.continuous=mean(long_data_net_effect_threshold_control$threshold.continuous),
+                      species="A")
+
+formula <- "value ~ threshold.continuous*min.distance + (1 | species)"
+long_net_effect_model_pred <- multimembership_model(formula, pres_matrix_long_control, long_data_net_effect_threshold_control)
+
+pred_dist_net_effect<-predict_multifunctionality_dist(model=long_net_effect_model_pred, new.data=new.data)
+
+
+plotdist_net_effect<-ggplot(data=pred_dist_net_effect, aes(x=min.distance,y=fit))+
+  geom_line(size=0.8)+
+  #geom_point(data=long_data_multi_threshold,aes(x=structural.niche,y=indirect.interactions), size = 1.5, alpha = 0.035)+
+  #scale_fill_distiller(palette= "YlGnBu", direction = -1, name = "multifunctionality")+
+  ylab("predicted net effect")+
+  xlab("minimum distance to exclusion")+
+  geom_ribbon(aes(ymin=lwr, ymax=upr), alpha=0.2)+
+  theme_classic()
+plotdist_net_effect
+
+
+# new.data with ND and FD to predict
+new.data <- expand.grid(
+  structural.niche = seq(min(long_data_net_effect_threshold_control$structural.niche),
+                         max(long_data_net_effect_threshold_control$structural.niche),
+                         length.out = 50
+  ),
+  structural.fitness = seq(min(long_data_net_effect_threshold_control$structural.fitness),
+                           max(long_data_net_effect_threshold_control$structural.fitness),
+                           length.out = 50
+  ),
+  threshold.continuous = mean(long_data_net_effect_threshold_control$threshold.continuous),
+  indirect.interactions = mean(long_data_net_effect_threshold_control$indirect.interactions),
+  species = "A"
+)
+
+# prediction model - unscaled values
+formula <- "value ~ threshold.continuous * (structural.niche * indirect.interactions + structural.fitness + structural.fitness:structural.niche) + (1 | species)"
+long_net_effect_model_coex_pred <- multimembership_model(formula, pres_matrix_long_control, long_data_net_effect_threshold_control)
+
+pred_nd_fd_net_effect <- predict_multifunctionality_coex(model = long_net_effect_model_coex_pred, new.data = new.data)
+
+plot_nd_fd_net_effect <- ggplot(data = pred_nd_fd_net_effect, aes(x = structural.niche, y = structural.fitness)) +
+  geom_tile(aes(fill = fit)) +
+  geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = structural.fitness), size = 1.5, alpha = 0.035) +
+  scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "net effect") +
+  theme_classic()
+plot_nd_fd_net_effect
+
+# new.data with ND and ID to predict
+new.data <- expand.grid(
+  structural.niche = seq(min(long_data_net_effect_threshold_control$structural.niche),
+                         max(long_data_net_effect_threshold_control$structural.niche),
+                         length.out = 50
+  ),
+  indirect.interactions = seq(min(long_data_net_effect_threshold_control$indirect.interactions),
+                           max(long_data_net_effect_threshold_control$indirect.interactions),
+                           length.out = 50
+  ),
+  threshold.continuous = mean(long_data_net_effect_threshold_control$threshold.continuous),
+  structural.fitness = mean(long_data_net_effect_threshold_control$structural.fitness),
+  species = "A"
+)
+
+# prediction model - unscaled values
+formula <- "value ~ threshold.continuous * (structural.niche * indirect.interactions + structural.fitness + structural.fitness:structural.niche) + (1 | species)"
+long_net_effect_model_coex_pred <- multimembership_model(formula, pres_matrix_long_control, long_data_net_effect_threshold_control)
+
+pred_nd_id_net_effect <- predict_multifunctionality_coex(model = long_net_effect_model_coex_pred, new.data = new.data)
+
+plot_nd_id_net_effect <- ggplot(data = pred_nd_id_net_effect, aes(x = structural.niche, y = indirect.interactions)) +
+  geom_tile(aes(fill = fit)) +
+  geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = indirect.interactions), size = 1.5, alpha = 0.035) +
+  scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "net effect") +
+  theme_classic()
+plot_nd_id_net_effect
+
+# reliability plot 
+
