@@ -186,6 +186,7 @@ plotdist<-ggplot(data=pred_dist, aes(x=min.distance,y=fit))+
   #scale_fill_distiller(palette= "YlGnBu", direction = -1, name = "multifunctionality")+
   ylab("predicted multifunctionality")+
   xlab("minimum distance to exclusion")+
+  ylim(0,0.55)+
   geom_ribbon(aes(ymin=lwr, ymax=upr), alpha=0.2)+
   theme_classic()
 plotdist
@@ -212,12 +213,12 @@ long_multi_model_coex_pred <- multimembership_model(formula, pres_matrix_long_co
 
 pred_nd_fd <- predict_multifunctionality_coex(model = long_multi_model_coex_pred, new.data = new.data)
 
-plot1 <- ggplot(data = pred_nd_fd, aes(x = structural.niche, y = structural.fitness)) +
+plot_nd_fd <- ggplot(data = pred_nd_fd, aes(x = structural.niche, y = structural.fitness)) +
   geom_tile(aes(fill = fit)) +
   geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = structural.fitness), size = 1.5, alpha = 0.035) +
   scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "multifunctionality") +
   theme_classic()
-plot1
+plot_nd_fd
 
 
 #reliability of multifunctionality ####
@@ -307,3 +308,4 @@ reliability_plot<-ggplot(data=coef_data, aes(number.of.functions,min.distance.co
   xlab("Number of functions included")+
   ggtitle("Overall multifunctionality")+
   theme_classic()
+reliability_plot

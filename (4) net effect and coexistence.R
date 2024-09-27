@@ -195,6 +195,7 @@ plotdist_net_effect<-ggplot(data=pred_dist_net_effect, aes(x=min.distance,y=fit)
   #scale_fill_distiller(palette= "YlGnBu", direction = -1, name = "multifunctionality")+
   ylab("predicted net effect")+
   xlab("minimum distance to exclusion")+
+  ylim(0,0.55)+
   geom_ribbon(aes(ymin=lwr, ymax=upr), alpha=0.2)+
   theme_classic()
 plotdist_net_effect
@@ -256,5 +257,90 @@ plot_nd_id_net_effect <- ggplot(data = pred_nd_id_net_effect, aes(x = structural
   theme_classic()
 plot_nd_id_net_effect
 
-# reliability plot 
+# reliability plot ####
+#first we need to transform the data in the long format
+long_reliability_data_net_effect<-melt(reliability_data_net_effect, measure.vars = c(1:9))
 
+#threshold must be continuous
+long_reliability_data_net_effect[c("threshold" ,"threshold.continuous")]<-str_split_fixed(long_reliability_data_net_effect$variable, "_", 2)
+long_reliability_data_net_effect$threshold.continuous<-as.numeric(long_reliability_data_net_effect$threshold.continuous)
+pres_matrix_long_reliability<-long_reliability_data_net_effect[,9:20]
+long_reliability_data_net_effect_control<-subset(long_reliability_data_net_effect, long_reliability_data_net_effect$nitrogen==0)
+rownames(long_reliability_data_net_effect_control)<-NULL
+long_reliability_data_net_effect_control[,c(4:7,23,25)]<-scale(long_reliability_data_net_effect_control[,c(4:7,23,25)], center = T)
+pres_matrix_long_reliability_control<-long_reliability_data_net_effect_control[,9:20]
+
+#check overall first, it corresponds more or less to the overall estimate with small CI
+#min distance only in control
+#now we can run the multimembership model
+# Omega and differential only
+lmod <- lFormula(value ~ threshold.continuous * min.distance  + (1 | species), data = long_reliability_data_net_effect_control)
+# I modified the random factor by introducing "speciesmat" which is a presence/absence matrix of PaNDiv species in my communities of 5 plant species.
+lmod$reTrms$Zt <- lmod$reTrms$Ztlist[[1]] <- Matrix(t(pres_matrix_long_reliability_control))
+# preparing to run the optimisation of the lmer
+devfun <- do.call(mkLmerDevfun, lmod)
+# optimising per se
+opt <- optimizeLmer(devfun)
+# run the optimisation and save the model into a variable called m1, m2,... to m5 -> important !
+long_reliability_threshold_control_dist <- mkMerMod(environment(devfun), opt, lmod$reTrms, fr = lmod$fr)
+
+modelplot(long_reliability_threshold_control_dist, coef_omit = "SD|Intercept",
+          coef_rename = c("min.distance" = "min. distance to exclusion",
+                          "threshold.continuous" = "multifunctionality threshold")) +
+  aes(shape = ifelse(p.value > 0.05,
+                     "Not significant",
+                     "Significant"
+  )) +
+  scale_shape_manual(values = c(4, 19)) +
+  theme_bw() +
+  theme(legend.title = element_blank())
+
+#loop init
+coef_data<-NULL
+vec_coef<-NULL
+#loop saving all combination level coef separately
+for (i in 2:7){
+  combinations<-combn(func_vec,i)
+  rint<-ncol(combinations)
+  sub_reliability_data<-subset(long_reliability_data_net_effect_control, long_reliability_data_net_effect_control$combination==i)
+  
+  for (j in 1:rint){
+    sub_reliability_data_iteration<-subset(sub_reliability_data,sub_reliability_data$iteration==j)
+    pres_matrix_iteration<-sub_reliability_data_iteration[9:20]
+    sub_reliability_data_iteration$species<-rep(LETTERS[1:12], length.out = nrow(sub_reliability_data_iteration))
+    
+    sub_reliability_data_iteration[,c(4:7,23,25)]<-scale(sub_reliability_data_iteration[,c(4:7,23,25)], center = T)
+    lmod <- lFormula(value ~ threshold.continuous * min.distance  + (1 | species), data =   sub_reliability_data_iteration)
+    # I modified the random factor by introducing "speciesmat" which is a presence/absence matrix of PaNDiv   species in my communities of 5 plant species.
+    lmod$reTrms$Zt <- lmod$reTrms$Ztlist[[1]] <- Matrix(t(pres_matrix_iteration))
+    # preparing to run the optimisation of the lmer
+    devfun <- do.call(mkLmerDevfun, lmod)
+    # optimising per se
+    opt <- optimizeLmer(devfun)
+    # run the optimisation and save the model into a variable called m1, m2,... to m5 -> important !
+    model_iteration_control_dist <- mkMerMod(environment(devfun), opt, lmod$reTrms, fr = lmod$fr)
+    coef_iteration<-as.data.frame(coef(model_iteration_control_dist)[1])[1,3]
+    vec_coef<-rbind(vec_coef,coef_iteration)
+    rownames(vec_coef)<-NULL
+    vec_coef<-as.data.frame(vec_coef)
+    vec_coef$V2<-i
+  }
+  coef_data<-rbind(coef_data,vec_coef)
+  vec_coef<-NULL
+}
+
+colnames(coef_data)<-c("min.distance.coef","number.of.functions")
+
+reliability_plot_net_effect<-ggplot(data=coef_data, aes(number.of.functions,min.distance.coef))+
+  geom_point(alpha=0.1)+
+  geom_smooth(se=F,color="#A2CD5A")+
+  stat_summary(geom = "point",
+               fun.y = "mean",
+               col = "black",
+               size = 3)+
+  ylim(c(-0.1,0.3))+
+  ylab("Coef. min. distance to exclusion")+
+  xlab("Number of functions included")+
+  ggtitle("Overall multifunctionality")+
+  theme_classic()
+reliability_plot_net_effect
