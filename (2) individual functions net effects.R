@@ -132,6 +132,8 @@ for (i in 1:length(function_names)) {
 
 names(all_models) <- function_names
 net_effect_dist_plot <- plot_multi(all_models)
+net_effect_dist_plot <- net_effect_dist_plot +
+  scale_x_continuous(breaks = c(-0.3, 0, 0.3))
 net_effect_dist_plot
 
 # now not only minimum distance to exclusion but models with all coexistence mechanisms

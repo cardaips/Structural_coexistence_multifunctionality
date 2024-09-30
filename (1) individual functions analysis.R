@@ -269,6 +269,8 @@ for (i in 1:length(function_names)) {
 
 names(all_models) <- function_names
 dist_plot <- plot_multi(all_models)
+dist_plot <- dist_plot +
+  scale_x_continuous(breaks = c(-0.3, 0, 0.3))
 dist_plot
 
 # now not only minimum distance to exclusion but models with all coexistence mechanisms
