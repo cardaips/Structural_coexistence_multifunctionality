@@ -341,6 +341,6 @@ reliability_plot_net_effect<-ggplot(data=coef_data, aes(number.of.functions,min.
   ylim(c(-0.1,0.3))+
   ylab("Coef. min. distance to exclusion")+
   xlab("Number of functions included")+
-  ggtitle("Overall multifunctionality")+
+  ggtitle("Net effect")+
   theme_classic()
 reliability_plot_net_effect
