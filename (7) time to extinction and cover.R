@@ -16,6 +16,8 @@ cover_mean_c<-subset(cover_mean_c, cover_mean_c$plot<=48)
 # load data from code from Oscar
 year_ext <- read.table("data/years_to_extinction_triplets.txt", sep = "\t", header = T)
 year_ext_se <- read.table("data/years_to_extinction_triplets_SE.txt", sep = "\t", header = T)
+pred_evenness_22<-read.table("data/predicted_eveness_2022.txt", sep = "\t", header = T)
+bhpred_evenness_22<-read.table("data/bh_predicted_eveness_2022.txt", sep = "\t", header = T)
 
 # look at the evolution of cover per species and see if it relates to the count of extinctions
 count_lim_sp<-year_ext %>%
@@ -44,6 +46,43 @@ ggplot(comp_splim_delta, aes(x = count, y = delta.mean)) +
 model <- lm(delta.mean ~ count, data = comp_splim_delta)
 summary(model)
 
+#let's look at predicted vs. observed evenness (a little bit of aggregation!)
+
+obs_evenness_22<-data.frame(triplets=pred_evenness_22$triplet, evenness="")
+for (i in 1:nrow(obs_evenness_22)) {
+  plot_focus<-subset(cover_mean_c, cover_mean_c$plot==i)
+  vec<-plot_focus$percentage.cover.y
+  p <- vec / sum(vec)
+  # Calculate Shannon diversity 
+  H <- -sum(p * log(p))
+  # Calculate Pielou's Evenness 
+  S <- length(vec)
+  evenness <- H / log(S)
+  evenness[is.na(evenness)==T]<-0
+  obs_evenness_22[i,2]<-evenness
+}
+
+obs_evenness_22$pred.evenness<-pred_evenness_22$evenness.22
+obs_evenness_22$bhpred.evenness<-bhpred_evenness_22$evenness.22
+
+obs_evenness_22$evenness<-as.numeric(obs_evenness_22$evenness)
+obs_evenness_22$pred.evenness<-as.numeric(obs_evenness_22$pred.evenness)
+obs_evenness_22$bhpred.evenness<-as.numeric(obs_evenness_22$bhpred.evenness)
+
+ggplot(obs_evenness_22, aes(x=evenness,y=pred.evenness))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black", alpha=.5) +  # 1:1 line
+  theme_minimal()
+
+ggplot(obs_evenness_22, aes(x=bhpred.evenness,y=evenness))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black", alpha=.5) +  # 1:1 line
+  theme_minimal()
+
+model <- lm(evenness ~ pred.evenness, data = obs_evenness_22)
+summary(model)
 
 # some exploration
 
@@ -66,63 +105,4 @@ for (i in 1:length(sp)) {
 
 ggplot(comp_all_cover, aes(x=year_to_extinction,y=delta.mean, color= same))+
   geom_point()
-
-
-
-ggplot(comp_hl, aes(x=year_to_extinction,y=delta.mean, color= same))+
-  geom_point()
-
-
-
-ra_focus<-subset(cover_mean_c, cover_mean_c$species=="Ra")
-ra_year_ext<-subset(year_ext, grepl("Ra", year_ext$triplets)==T)
-ra_year_ext$plot<-rownames(ra_year_ext)
-
-comp_ra<-merge(ra_year_ext,ra_focus, by.y = "plot") %>%
-  select(plot,splim,year_to_extinction, delta.mean) %>%
-  arrange(desc(year_to_extinction)) 
-
-comp_ra[is.na(comp_ra)] <- 100
-comp_ra$same<-comp_ra$splim == "Ra"
-
-ggplot(comp_ra, aes(x=year_to_extinction,y=delta.mean, color= same))+
-  geom_point()
-
-
-
-to_focus<-subset(cover_mean_c, cover_mean_c$species=="To")
-to_year_ext<-subset(year_ext, grepl("To", year_ext$triplets)==T)
-to_year_ext$plot<-rownames(to_year_ext)
-
-comp_to<-merge(to_year_ext,to_focus, by.y = "plot") %>%
-  select(plot,splim,year_to_extinction, delta.mean) %>%
-  arrange(desc(year_to_extinction)) 
-
-comp_to[is.na(comp_to)] <- 100
-comp_to$same<-comp_to$splim == "To"
-
-ggplot(comp_to, aes(x=year_to_extinction,y=delta.mean, color= same))+
-  geom_point()
-
-
-
-
-pt_focus<-subset(cover_mean_c, cover_mean_c$species=="Pt")
-pt_year_ext<-subset(year_ext, grepl("Pt", year_ext$triplets)==T)
-pt_year_ext$plot<-rownames(pt_year_ext)
-
-comp_pt<-merge(pt_year_ext,pt_focus, by.y = "plot") %>%
-  select(plot,splim,year_to_extinction, delta.mean) %>%
-  arrange(desc(year_to_extinction)) 
-
-comp_pt[is.na(comp_pt)] <- 100
-comp_pt$same<-comp_pt$splim == "Pt"
-
-ggplot(comp_pt, aes(x=year_to_extinction,y=delta.mean, color= same))+
-  geom_point()
-
-
-
-comp_multiple<-rbind(comp_hl,comp_ra, comp_pt, comp_to)
-
 
