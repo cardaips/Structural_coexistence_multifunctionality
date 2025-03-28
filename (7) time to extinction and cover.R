@@ -81,6 +81,20 @@ ggplot(obs_evenness_22, aes(x = bhpred.evenness, y = evenness)) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black", alpha = .5) + # 1:1 line
   theme_minimal()
 
+ggplot(obs_evenness_22, aes(x = bhpred.evenness, y = evenness)) +
+  geom_point(size = 2, alpha = 0.7) +  # Slightly larger points with transparency
+  geom_smooth(method = "lm", color = "black", fill = "gray80", alpha = 0.3) +  # Subtle shaded regression line
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black", alpha = 0.5) +  # 1:1 reference line
+  labs(x = "Predicted Evenness (BH model)", 
+       y = "Observed Evenness",
+       title = "Observed vs. Predicted Evenness") +
+  theme_minimal(base_size = 14) +  # Minimal theme with slightly larger text
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),  # Centered, bold title
+    panel.grid.major = element_line(color = "gray90", linetype = "dashed"),  # Softer gridlines
+    panel.grid.minor = element_blank()  # Remove minor gridlines
+  )
+
 model <- lm(evenness ~ bhpred.evenness, data = obs_evenness_22)
 summary(model)
 
