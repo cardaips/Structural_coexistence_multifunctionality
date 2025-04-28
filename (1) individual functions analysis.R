@@ -8,6 +8,7 @@
 # renv loading and library ####
 renv::restore()
 library(dplyr) # for efficient data wrangling
+library(tidyr) # for efficient data wrangling
 library(corrplot) # to check correlations between functions
 library(modelsummary) # to easily present model outputs
 library(ggplot2) # beautiful figures, of course
@@ -16,6 +17,7 @@ library(devtools) # to manipulate lme4 in order to hack the random factors
 library(reshape) # just another efficient data wrangling package
 library(ghibli) # nice colors package
 library(broom.mixed) # mixed model package
+library(broom) #normal linear model package
 library(stringr) # easy strings manipulation
 library(effects) # aesthetic package
 library(ggpubr) # complements ggplot2

@@ -17,7 +17,7 @@ cover_mean_c <- subset(cover_mean_c, cover_mean_c$plot <= 48)
 year_ext <- read.table("data/years_to_extinction_triplets.txt", sep = "\t", header = T)
 year_ext_se <- read.table("data/years_to_extinction_triplets_SE.txt", sep = "\t", header = T)
 pred_evenness_22 <- read.table("data/predicted_eveness_2022.txt", sep = "\t", header = T)
-bhpred_evenness_22 <- read.table("data/bh_predicted_eveness_2022.txt", sep = "\t", header = T)
+bhpred_evenness_22 <- read.table("data/bh_predicted_eveness_15y_2022.txt", sep = "\t", header = T)
 
 # look at the evolution of cover per species and see if it relates to the count of extinctions
 count_lim_sp <- year_ext %>%
@@ -113,3 +113,57 @@ for (i in 1:length(sp)) {
 
 ggplot(comp_all_cover, aes(x = year_to_extinction, y = delta.mean, color = same)) +
   geom_point()
+
+all_plots<-read.table("data/abundances_predictedBH_all_plots.txt", sep = "\t", header = T)
+cover_june_c<-subset(cover_june, cover_june$nitrogen==0)
+cover_june_c$nitrogen<-NULL
+all_plots$percentage.cover<-all_plots$value
+all_plots$value<-NULL
+
+all_plots <- all_plots %>%
+  mutate(predicted.percentage.cover = percentage.cover) %>%
+  select(plot, species, predicted.percentage.cover)
+
+cover_june_c <- cover_june_c %>%
+  mutate(observed.percentage.cover = percentage.cover) %>%
+  select(plot, species, observed.percentage.cover)
+
+merged_cover_june <- left_join(all_plots, cover_june_c, by = c("plot", "species"))
+merged_cover_june[is.na(merged_cover_june)] <- 0
+merged_cover_june$delta.observed.percentage.cover<-merged_cover_june$observed.percentage.cover-0.33
+
+merged_cover_june_no_extinction<-subset(merged_cover_june, merged_cover_june$predicted.percentage.cover>=0.001)
+
+ggplot(merged_cover_june_no_extinction, aes(x = predicted.percentage.cover, y = observed.percentage.cover)) +
+  geom_point(size = 2, alpha = 0.7) +  # Slightly larger, semi-transparent points
+  geom_smooth(method = "lm", color = "black", fill = "gray80", alpha = 0.3) +  # Subtle regression line
+  labs(
+    x = "Predicted Percentage Cover",
+    y = "Observed Percentage Cover",
+    title = "Observed vs Predicted Cover (June)"
+  ) +
+  theme_minimal(base_size = 14) +  # Minimal clean theme, bigger text
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),  # Centered, bold title
+    panel.grid.major = element_line(color = "gray90", linetype = "dashed"),  # Soft major gridlines
+    panel.grid.minor = element_blank()  # No minor gridlines
+  )
+
+model <- lm(observed.percentage.cover ~ predicted.percentage.cover, data = merged_cover_june_no_extinction)
+summary(model)
+
+ggplot(merged_cover_june_no_extinction, aes(x = predicted.percentage.cover, y = observed.percentage.cover, color = species)) +
+  geom_point() +                              # scatter points
+  geom_smooth(method = "lm", se = TRUE, aes(group = species)) +  # separate regression line for each species
+  labs(
+    x = "Predicted Percentage Cover",
+    y = "Observed Percentage Cover",
+    title = "Observed vs Predicted Cover (June) by Species"
+  ) +
+  theme_minimal()
+
+model_per_species_tidy <- merged_cover_june_no_extinction %>%
+  group_by(species) %>%
+  do(tidy(lm(observed.percentage.cover ~ predicted.percentage.cover, data = .)))
+
+View(model_per_species_tidy)
