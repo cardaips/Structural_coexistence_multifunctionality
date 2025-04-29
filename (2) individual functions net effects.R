@@ -148,3 +148,16 @@ for (i in 1:length(function_names)) {
 names(all_models) <- function_names
 net_effect_coex_plot <- plot_multi(all_models)
 net_effect_coex_plot
+
+# now not only main effects to check which coex mechanism is more driving (even if not significant)
+all_models <- NULL
+
+for (i in 1:length(function_names)) {
+  formula <- paste(function_names[i], "~ omega + differential + non.logged.theta + (1 | species)", sep = " ")
+  multi_model <- multimembership_model(formula, pres_matrix_control, net_effect_control_scaled)
+  all_models <- c(all_models, multi_model)
+}
+
+names(all_models) <- function_names
+net_effect_coex_plot_main <- plot_multi(all_models)
+net_effect_coex_plot_main

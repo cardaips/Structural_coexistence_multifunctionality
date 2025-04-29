@@ -23,6 +23,7 @@ library(effects) # aesthetic package
 library(ggpubr) # complements ggplot2
 library(scales) # complements ggplot2
 library(styler) # standardized code syntax, make it pretty!
+library(vegan) #to get the shannon diversity easily
 
 # loading function from anisoFun package manually
 ## These functions come from Allen-Perkin et al. 2023, Ecology Letters,  doi: https://doi.org/10.1111/ele.14291
@@ -287,3 +288,16 @@ for (i in 1:length(function_names)) {
 names(all_models) <- function_names
 coex_plot <- plot_multi(all_models)
 coex_plot
+
+# now not only main effects to check which coex mechanism is more driving (even if not significant)
+all_models <- NULL
+
+for (i in 1:length(function_names)) {
+  formula <- paste(function_names[i], "~ omega + differential + non.logged.theta + (1 | species)", sep = " ")
+  multi_model <- multimembership_model(formula, pres_matrix_control, data_multi_control_scaled)
+  all_models <- c(all_models, multi_model)
+}
+
+names(all_models) <- function_names
+coex_plot_main <- plot_multi(all_models)
+coex_plot_main

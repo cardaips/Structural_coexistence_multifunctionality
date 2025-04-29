@@ -2,7 +2,7 @@
 ## code author: Caroline Daniel
 ## contact: caroline.daniel@unibe.ch
 
-### Part 7 - Compare predictions of time to extinction with cover data
+### Part 5 - Compare predictions of time to extinction with cover data
 ### in June and August 2022
 
 # source the cover data from the 3-species communities ####
@@ -148,6 +148,7 @@ ggplot(merged_cover_june_no_extinction, aes(x = predicted.percentage.cover, y = 
     panel.grid.major = element_line(color = "gray90", linetype = "dashed"),  # Soft major gridlines
     panel.grid.minor = element_blank()  # No minor gridlines
   )
+
 
 model <- lm(observed.percentage.cover ~ predicted.percentage.cover, data = merged_cover_june_no_extinction)
 summary(model)
