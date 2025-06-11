@@ -23,7 +23,7 @@ library(effects) # aesthetic package
 library(ggpubr) # complements ggplot2
 library(scales) # complements ggplot2
 library(styler) # standardized code syntax, make it pretty!
-library(vegan) #to get the shannon diversity easily
+library(vegan) #to get the Shannon diversity easily
 
 # loading function from anisoFun package manually
 ## These functions come from Allen-Perkin et al. 2023, Ecology Letters,  doi: https://doi.org/10.1111/ele.14291
@@ -225,6 +225,33 @@ plotb <- ggplot(data_all_triplets) +
   theme_classic()
 
 ggarrange(plotb, plota, common.legend = T)
+
+# plot for concept figure 1
+
+ggplot(data_all_triplets) +
+  geom_point(
+    data = subset(structural_coexistence_all, nitrogen == 0),
+    aes(x = omega, y = differential, color = non.logged.min.distance),
+    size = 3
+  ) +
+  geom_smooth(
+    data = subset(structural_coexistence_all, nitrogen == 0),
+    aes(x = omega, y = differential),
+    method = "lm",
+    se = TRUE,
+    linetype = "dotted",
+    color = "black",
+    fill = "grey50",
+    alpha = 0.1
+  ) +
+  xlab("structural niche differences") +
+  ylab("indirect interactions") +
+  scale_color_gradient2(
+    name = "min. distance to exclusion",
+    low = "darkblue", mid = "grey", high = "darkred"
+  ) +
+  theme_classic()
+
 
 # model with multimembership random factor for individual functions ####
 ### Preparation for fancy models
