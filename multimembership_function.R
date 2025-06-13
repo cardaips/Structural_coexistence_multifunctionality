@@ -51,7 +51,7 @@ plot_multi <- function(model) {
     guides(colour = "none") +
     geom_vline(xintercept = 0, linetype = "dashed", color = "blue") +
     theme_minimal()+
-    theme(text= element_text(size = 15, family = "serif"))
+    theme(text= element_text(size = 15))
   return(plot)
 }
 

@@ -6,7 +6,7 @@
 ### structural coexistence measure
 
 # renv loading and library ####
-renv::restore()
+#renv::restore()
 library(dplyr) # for efficient data wrangling
 library(tidyr) # for efficient data wrangling
 library(corrplot) # to check correlations between functions

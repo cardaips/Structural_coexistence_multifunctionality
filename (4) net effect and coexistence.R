@@ -165,7 +165,29 @@ formula <- "value ~ threshold.continuous*min.distance + (1 | species)"
 long_net_effect_model <- multimembership_model(formula, pres_matrix_long_control, long_data_net_effect_threshold_control_scaled)
 dist_net_effect_plot <- plot_multi(long_net_effect_model)
 
-dist_net_effect_plot
+dist_net_effect_plot <- dist_net_effect_plot +
+  ggtitle("b.")+
+  theme(
+    axis.text.y = element_blank(),
+    axis.title.x = element_blank(),
+    strip.text = element_blank(),
+    plot.title = element_text(hjust = 0.5, size = 12)
+  )
+
+dist_multi_plot <- dist_multi_plot +
+  ggtitle("a.")+
+  theme(
+    axis.title.x = element_blank(),
+    strip.text = element_blank(),
+    plot.title = element_text(hjust = 0.5, size = 12)
+  )
+
+figs1 <- ggarrange(dist_multi_plot,dist_net_effect_plot, common.legend = T,
+          legend = "right", ncol = 2, widths = c(2, 1))
+
+annotate_figure(figs1,
+                bottom = text_grob("Coefficient estimates and 95% confidence intervals", size = 14)
+)
 
 # then all coexistence mechanisms
 formula <- "value ~ threshold.continuous * (structural.niche * indirect.interactions + structural.fitness + structural.fitness:structural.niche) + (1 | species)"
