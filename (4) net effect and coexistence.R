@@ -208,8 +208,23 @@ new.data<-expand.grid(min.distance=seq(min(long_data_net_effect_threshold_contro
 formula <- "value ~ threshold.continuous*min.distance + (1 | species)"
 long_net_effect_model_pred <- multimembership_model(formula, pres_matrix_long_control, long_data_net_effect_threshold_control)
 
-pred_dist_net_effect<-predict_multifunctionality_dist(model=long_net_effect_model_pred, new.data=new.data)
+long_data_net_effect_threshold_control$fixed_pred <- predict(
+  long_net_effect_model_pred,
+  newdata = long_data_net_effect_threshold_control,
+  re.form = NA
+)
 
+# extracting residuals to plot the data points in the prediction
+
+long_data_net_effect_threshold_control$partial_residual <- 
+  long_data_net_effect_threshold_control$value - 
+  long_data_net_effect_threshold_control$fixed_pred
+
+long_data_net_effect_threshold_control$adjusted_y <- 
+  long_data_net_effect_threshold_control$value + 
+  long_data_net_effect_threshold_control$partial_residual
+
+pred_dist_net_effect<-predict_multifunctionality_dist(model=long_net_effect_model_pred, new.data=new.data)
 
 plotdist_net_effect<-ggplot(data=pred_dist_net_effect, aes(x=min.distance,y=fit))+
   geom_line(size=0.8)+
@@ -217,10 +232,19 @@ plotdist_net_effect<-ggplot(data=pred_dist_net_effect, aes(x=min.distance,y=fit)
   #scale_fill_distiller(palette= "YlGnBu", direction = -1, name = "multifunctionality")+
   ylab("predicted net effect")+
   xlab("minimum distance to exclusion")+
-  ylim(0,0.55)+
+  ylim(-0.4,1.3)+
   geom_ribbon(aes(ymin=lwr, ymax=upr), alpha=0.2)+
   theme_classic()
-plotdist_net_effect
+
+plotdist_net_effect +
+  geom_point(
+    data = long_data_net_effect_threshold_control,
+    aes(x = min.distance, y = adjusted_y),  # or use adjusted_y if you prefer
+    inherit.aes = FALSE,
+    size = 1.5,
+    alpha = 0.1,
+    color = "black"
+  )
 
 
 # new.data with ND and FD to predict

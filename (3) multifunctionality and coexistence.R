@@ -112,7 +112,6 @@ for (l in 2:7) {
   data_multi_threshold_empty$iteration <- NA
   data_multi_threshold_full <- data_multi_threshold_empty
 
-
   for (k in 1:ncol(combinations)) {
     for (j in 1:length(thresholds)) {
       step <- thresholds[j]
@@ -177,20 +176,38 @@ new.data<-expand.grid(min.distance=seq(min(long_data_multi_threshold_control$min
 formula <- "value ~ threshold.continuous*min.distance + (1 | species)"
 long_multi_model_pred <- multimembership_model(formula, pres_matrix_long_control, long_data_multi_threshold_control)
 
+# extracting residuals to plot the data points in the prediction
+formula <- "value ~  (1 | species)"
+formula <- "value ~ threshold.continuous + (1 | species)"
+long_multi_model_resid <- multimembership_model(formula, pres_matrix_long_control, long_data_multi_threshold_control)
+
+long_data_multi_threshold_control$resid <- resid(long_multi_model_resid)
+long_data_multi_threshold_control$corrected_y <-long_data_multi_threshold_control$value + long_data_multi_threshold_control$resid
+
 # here it's scaled values, I use the model that ran for the effect sizes
 pred_dist<-predict_multifunctionality_dist(model=long_multi_model_pred, new.data=new.data)
 
 plotdist<-ggplot(data=pred_dist, aes(x=min.distance,y=fit))+
   geom_line(size=0.8)+
+  #geom_point(data= long_data_multi_threshold_control, aes(x=min.distance, y=value), alpha = 0.05)+
   #geom_point(data=long_data_multi_threshold,aes(x=structural.niche,y=indirect.interactions), size = 1.5, alpha = 0.035)+
   #scale_fill_distiller(palette= "YlGnBu", direction = -1, name = "multifunctionality")+
   ylab("predicted multifunctionality")+
   xlab("minimum distance to exclusion")+
-  ylim(0,0.55)+
+  ylim(-0.5,1.5)+
   geom_ribbon(aes(ymin=lwr, ymax=upr), alpha=0.2)+
   theme_classic()
-plotdist
 
+plotdist_points <- plotdist +
+  geom_point(
+    data = long_data_multi_threshold_control,
+    aes(x = min.distance, y = corrected_y),  
+    inherit.aes = FALSE,
+    size = 1.5,
+    alpha = 0.1,
+    color = "black"
+  )
+plotdist_points
 
 # new.data is the dataset I use for predictions
 new.data <- expand.grid(
