@@ -208,44 +208,41 @@ new.data<-expand.grid(min.distance=seq(min(long_data_net_effect_threshold_contro
 formula <- "value ~ threshold.continuous*min.distance + (1 | species)"
 long_net_effect_model_pred <- multimembership_model(formula, pres_matrix_long_control, long_data_net_effect_threshold_control)
 
-long_data_net_effect_threshold_control$fixed_pred <- predict(
-  long_net_effect_model_pred,
-  newdata = long_data_net_effect_threshold_control,
-  re.form = NA
-)
-
 # extracting residuals to plot the data points in the prediction
 
-long_data_net_effect_threshold_control$partial_residual <- 
-  long_data_net_effect_threshold_control$value - 
-  long_data_net_effect_threshold_control$fixed_pred
+formula <- "value ~ threshold.continuous + (1 | species)"
+long_net_effect_model_resid <- multimembership_model(formula, pres_matrix_long_control, long_data_net_effect_threshold_control)
 
-long_data_net_effect_threshold_control$adjusted_y <- 
-  long_data_net_effect_threshold_control$value + 
-  long_data_net_effect_threshold_control$partial_residual
+long_data_net_effect_threshold_control$resid <- resid(long_net_effect_model_resid)
+long_data_net_effect_threshold_control$corrected_y <-long_data_net_effect_threshold_control$value + long_data_net_effect_threshold_control$resid
 
-pred_dist_net_effect<-predict_multifunctionality_dist(model=long_net_effect_model_pred, new.data=new.data)
+pred_net_effect_dist<-predict_multifunctionality_dist(model=long_net_effect_model_pred, new.data=new.data)
 
-plotdist_net_effect<-ggplot(data=pred_dist_net_effect, aes(x=min.distance,y=fit))+
+plotdist_net_effect<-ggplot(data=pred_net_effect_dist, aes(x=min.distance,y=fit))+
   geom_line(size=0.8)+
   #geom_point(data=long_data_multi_threshold,aes(x=structural.niche,y=indirect.interactions), size = 1.5, alpha = 0.035)+
   #scale_fill_distiller(palette= "YlGnBu", direction = -1, name = "multifunctionality")+
   ylab("predicted net effect")+
   xlab("minimum distance to exclusion")+
-  ylim(-0.4,1.3)+
+  ylim(-0.5,1.5)+
   geom_ribbon(aes(ymin=lwr, ymax=upr), alpha=0.2)+
   theme_classic()
 
-plotdist_net_effect +
+plotdist_net_effect_points <- plotdist_net_effect +
   geom_point(
     data = long_data_net_effect_threshold_control,
-    aes(x = min.distance, y = adjusted_y),  # or use adjusted_y if you prefer
+    aes(x = min.distance, y = corrected_y),  
     inherit.aes = FALSE,
     size = 1.5,
     alpha = 0.1,
     color = "black"
-  )
+  ) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "blue") +
+  ggtitle("b.") +
+  theme(plot.title = element_text(size = 12))
+plotdist_net_effect_points
 
+fig.2 <- ggarrange(plotdist_points,plotdist_net_effect_points)
 
 # new.data with ND and FD to predict
 new.data <- expand.grid(
@@ -271,7 +268,7 @@ pred_nd_fd_net_effect <- predict_multifunctionality_coex(model = long_net_effect
 plot_nd_fd_net_effect <- ggplot(data = pred_nd_fd_net_effect, aes(x = structural.niche, y = structural.fitness)) +
   geom_tile(aes(fill = fit)) +
   geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = structural.fitness), size = 1.5, alpha = 0.035) +
-  scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "net effect", limits = c(-0.05,0.5)) +
+  scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "net effect", limits = c(-0.1,0.5)) +
   theme_classic()
 plot_nd_fd_net_effect
 
@@ -299,9 +296,11 @@ pred_nd_id_net_effect <- predict_multifunctionality_coex(model = long_net_effect
 plot_nd_id_net_effect <- ggplot(data = pred_nd_id_net_effect, aes(x = structural.niche, y = indirect.interactions)) +
   geom_tile(aes(fill = fit)) +
   geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = indirect.interactions), size = 1.5, alpha = 0.035) +
-  scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "net effect", limits = c(-0.05,0.5)) +
+  scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "net effect", limits = c(-0.1,0.5)) +
   theme_classic()
 plot_nd_id_net_effect
+
+fig.3b <- ggarrange(plot_nd_fd_net_effect, plot_nd_id_net_effect, common.legend = T, legend = "right")
 
 # reliability plot ####
 #first we need to transform the data in the long format

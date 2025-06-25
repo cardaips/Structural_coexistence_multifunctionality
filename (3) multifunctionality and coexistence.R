@@ -157,6 +157,22 @@ dist_multi_plot <- plot_multi(long_multi_model)
 
 dist_multi_plot
 
+for (i in 1:length(unique(long_data_multi_threshold_control$threshold.continuous))){
+  
+  threshold <- unique(long_data_multi_threshold_control$threshold.continuous)[i]
+  long_data_multi <- long_data_multi_threshold_control[long_data_multi_threshold_control$threshold.continuous == threshold,]
+  
+  pres_temp<- long_data_multi[,7:18]
+  long_data_multi$species <- rep(LETTERS[1:12], length.out = nrow(long_data_multi))
+  formula <- "value ~ min.distance + (1 | species)"
+  
+  temp_multi_model <- multimembership_model(formula, pres_temp, long_data_multi)
+  print(summary(temp_multi_model))
+  dist_multi_temp <- plot_multi(temp_multi_model)
+  print(dist_multi_temp + ggtitle(i))
+  
+}
+
 # then all coexistence mechanisms
 formula <- "value ~ threshold.continuous * (structural.niche * indirect.interactions + structural.fitness + structural.fitness:structural.niche) + (1 | species)"
 
@@ -206,7 +222,10 @@ plotdist_points <- plotdist +
     size = 1.5,
     alpha = 0.1,
     color = "black"
-  )
+  ) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "blue") +
+  ggtitle("a.") +
+  theme(plot.title = element_text(size = 12))
 plotdist_points
 
 # new.data is the dataset I use for predictions
@@ -233,10 +252,39 @@ pred_nd_fd <- predict_multifunctionality_coex(model = long_multi_model_coex_pred
 plot_nd_fd <- ggplot(data = pred_nd_fd, aes(x = structural.niche, y = structural.fitness)) +
   geom_tile(aes(fill = fit)) +
   geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = structural.fitness), size = 1.5, alpha = 0.035) +
-  scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "multifunctionality") +
+  scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "multifunctionality", limits = c(0.25,0.63)) +
   theme_classic()
 plot_nd_fd
 
+# new.data with ND and ID to predict
+new.data <- expand.grid(
+  structural.niche = seq(min(long_data_multi_threshold_control$structural.niche),
+                         max(long_data_multi_threshold_control$structural.niche),
+                         length.out = 50
+  ),
+  indirect.interactions = seq(min(long_data_multi_threshold_control$indirect.interactions),
+                              max(long_data_multi_threshold_control$indirect.interactions),
+                              length.out = 50
+  ),
+  threshold.continuous = mean(long_data_multi_threshold_control$threshold.continuous),
+  structural.fitness = mean(long_data_multi_threshold_control$structural.fitness),
+  species = "A"
+)
+
+# prediction model - unscaled values
+formula <- "value ~ threshold.continuous * (structural.niche * indirect.interactions + structural.fitness + structural.fitness:structural.niche) + (1 | species)"
+long_multi_model_coex_pred <- multimembership_model(formula, pres_matrix_long_control, long_data_multi_threshold_control)
+
+pred_nd_id_multi <- predict_multifunctionality_coex(model = long_multi_model_coex_pred, new.data = new.data)
+
+plot_nd_id_multi <- ggplot(data = pred_nd_id_multi, aes(x = structural.niche, y = indirect.interactions)) +
+  geom_tile(aes(fill = fit)) +
+  geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = indirect.interactions), size = 1.5, alpha = 0.035) +
+  scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "multifunctionality", limits = c(0.25,0.63)) +
+  theme_classic()
+plot_nd_id_multi
+
+fig.3a <- ggarrange(plot_nd_fd, plot_nd_id_multi, common.legend = T, legend = "right")
 
 #reliability of multifunctionality ####
 
