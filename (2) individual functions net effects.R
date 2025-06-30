@@ -161,3 +161,30 @@ for (i in 1:length(function_names)) {
 names(all_models) <- function_names
 net_effect_coex_plot_main <- plot_multi(all_models)
 net_effect_coex_plot_main
+
+model_net_effect_estimates <- lapply(all_models, function(m) {
+  coef <- fixef(m)
+  return(coef)
+})
+net_effect_estimates <- do.call(rbind, model_net_effect_estimates)
+net_effect_estimates <- as.data.frame(net_effect_estimates)
+net_effect_estimates$functions<-row.names(net_effect_estimates)
+
+net_effect_estimates_plot <- ggplot(net_effect_estimates, aes(x = omega, y = differential, label = functions)) +
+  geom_point(size = 3, alpha = 0.5) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "grey")+
+  geom_text(vjust = -0.8, size = 4) +  # Labels slightly above the points
+  labs(
+    x = "Estimate of ND",
+    y = "Estimate of ID",
+    title = "Estimates of ND vs. ID, individual net effect"
+  ) +
+  
+  xlim(-0.3, 0.5) +
+  ylim(-0.3, 0.25) +
+  theme_minimal(base_size = 14)+
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    panel.grid = element_blank(),
+    axis.line = element_line(color = "black")
+  )
