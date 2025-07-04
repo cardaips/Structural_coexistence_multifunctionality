@@ -74,9 +74,8 @@ for (j in 1:length(thresholds)) {
 colnames(data_multi_threshold)[1:9] <- paste("threshold", as.character(thresholds), sep = "_")
 save_multi <- data_multi_threshold
 
-corrplot(cor(cbind(all_functions[, 3:9], data_multi_threshold[, 1:9])),
-  method = "number"
-) # looks ok, but beta-glucosidase <-> high levels of multifunctionality = 0.6
+corrplot(cor(cbind(all_functions[, 3:9], data_multi_threshold[, 1:9]))[1:7,],
+  method = "number", type = "upper") # looks ok, but beta-glucosidase <-> high levels of multifunctionality = 0.6
 
 # little plot checks
 par(mfrow = c(3, 3), mar = c(0, 0, 0, 0))
@@ -157,6 +156,8 @@ dist_multi_plot <- plot_multi(long_multi_model)
 
 dist_multi_plot
 
+# let's have a look at how the individual thresholds keep the effect consistent or not
+models_list <- list()
 for (i in 1:length(unique(long_data_multi_threshold_control$threshold.continuous))){
   
   threshold <- unique(long_data_multi_threshold_control$threshold.continuous)[i]
@@ -167,11 +168,44 @@ for (i in 1:length(unique(long_data_multi_threshold_control$threshold.continuous
   formula <- "value ~ min.distance + (1 | species)"
   
   temp_multi_model <- multimembership_model(formula, pres_temp, long_data_multi)
-  print(summary(temp_multi_model))
+  #print(summary(temp_multi_model))
   dist_multi_temp <- plot_multi(temp_multi_model)
-  print(dist_multi_temp + ggtitle(i))
+  #print(dist_multi_temp + ggtitle(i))
   
+  models_list[[i]] <- temp_multi_model
 }
+
+fixed_df <- map2_dfr(
+  models_list,  seq_along(models_list),
+  ~ {
+    est <- fixef(.x)["min.distance"]
+    ci <- confint(.x, parm = "min.distance", method = "profile")
+    data.frame(
+      model = .y,
+      estimate = est,
+      lci = ci[1],
+      uci = ci[2]
+    )
+  }
+)
+
+fixed_df$model<-as.character(unique(long_data_multi_threshold_control$threshold.continuous))
+
+catplot_multi <- ggplot(fixed_df, aes(x = factor(model), y = estimate, color = factor(model))) +
+  geom_point(size = 3) +
+  geom_hline(yintercept = 0, linetype = "dotted", color = "blue")+
+  geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.2) +
+  labs(
+    title = "a.",
+    x = "Model (multifunctionality threshold)",
+    y = "Estimate with 95% CI"
+  ) +
+  theme_minimal(base_size = 14) +
+  labs(color = "Model threshold") +
+  coord_flip() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  ) #seems the trend is the same but the power to test each threshold is lower
 
 # then all coexistence mechanisms
 formula <- "value ~ threshold.continuous * (structural.niche * indirect.interactions + structural.fitness + structural.fitness:structural.niche) + (1 | species)"

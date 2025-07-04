@@ -189,6 +189,59 @@ annotate_figure(figs1,
                 bottom = text_grob("Coefficient estimates and 95% confidence intervals", size = 14)
 )
 
+# let's have a look at how the individual thresholds keep the effect consistent or not
+models_list <- list()
+for (i in 1:length(unique(long_data_net_effect_threshold_control$threshold.continuous))){
+  
+  threshold <- unique(long_data_net_effect_threshold_control$threshold.continuous)[i]
+  long_data_net_effect <- long_data_net_effect_threshold_control[long_data_net_effect_threshold_control$threshold.continuous == threshold,]
+  
+  pres_temp<- long_data_net_effect[,7:18]
+  long_data_net_effect$species <- rep(LETTERS[1:12], length.out = nrow(long_data_net_effect))
+  formula <- "value ~ min.distance + (1 | species)"
+  
+  temp_net_effect_model <- multimembership_model(formula, pres_temp, long_data_net_effect)
+  #print(summary(temp_net_effect_model))
+  dist_net_effect_temp <- plot_multi(temp_net_effect_model)
+  #print(dist_net_effect_temp + ggtitle(i))
+  
+  models_list[[i]] <- temp_net_effect_model
+}
+
+fixed_df <- map2_dfr(
+  models_list,  seq_along(models_list),
+  ~ {
+    est <- fixef(.x)["min.distance"]
+    ci <- confint(.x, parm = "min.distance", method = "profile")
+    data.frame(
+      model = .y,
+      estimate = est,
+      lci = ci[1],
+      uci = ci[2]
+    )
+  }
+)
+
+fixed_df$model<-as.character(unique(long_data_net_effect_threshold_control$threshold.continuous))
+
+catplot_net_effect <- ggplot(fixed_df, aes(x = factor(model), y = estimate, color = factor(model))) +
+  geom_point(size = 3) +
+  geom_hline(yintercept = 0, linetype = "dotted", color = "blue")+
+  geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.2) +
+  labs(
+    title = "b.",
+    x = "Model (net effect threshold)",
+    y = "Estimate with 95% CI"
+  ) +
+  theme_minimal(base_size = 14) +
+  labs(color = "Net effect threshold") +
+  coord_flip() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  ) #seems the trend is the same but the power to test each threshold is lower
+
+ggarrange(catplot_multi, catplot_net_effect, common.legend = T, legend = "right")
+
 # then all coexistence mechanisms
 formula <- "value ~ threshold.continuous * (structural.niche * indirect.interactions + structural.fitness + structural.fitness:structural.niche) + (1 | species)"
 

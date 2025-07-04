@@ -101,7 +101,8 @@ all_functions_predicted$herbivory_damage <- log(all_functions_predicted$herbivor
 # build the net effect dataset for each 48 plot by comparing with predicted values from monocultures ####
 net_effect <- all_functions[3:9] - all_functions_predicted[3:9]
 # quick check of correlations
-corrplot(cor(net_effect), method = "number") # looks ok
+corrplot(cor(net_effect), method = "number", type = "upper", title = "b.",
+         mar = c(0, 0, 1, 0)) # looks ok
 net_effect$plot <- all_functions$plot
 net_effect$nitrogen <- all_functions$nitrogen
 net_effect <- merge(net_effect, structural_coexistence_all)

@@ -26,6 +26,7 @@ library(styler) # standardized code syntax, make it pretty!
 library(vegan) #to get the Shannon diversity easily
 library(flextable) # make beautiful table output easily
 library(officer) # save and write office documents from R
+library(purrr) # extract some model estimates for plotting
 
 # loading function from anisoFun package manually
 ## These functions come from Allen-Perkin et al. 2023, Ecology Letters,  doi: https://doi.org/10.1111/ele.14291
@@ -225,7 +226,8 @@ all_functions <- data.frame(
   root_biomass = root_biomass$root_dry_weight, decomposition = plot_decomposition$delta_weight,
   fungi_damage = plot_damage$fungi_damage, herbivory_damage = plot_damage$herbivory_damage
 )
-corrplot(cor(all_functions[, 3:9]), method = "number") # looks ok
+corrplot(cor(all_functions[, 3:9]), method = "number", type = "upper", title = "a.",
+         mar = c(0, 0, 1, 0)) # looks ok
 
 ## transform function to have a normal distribution
 # log what is not normally distributed
