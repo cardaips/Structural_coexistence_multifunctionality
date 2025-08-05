@@ -375,7 +375,9 @@ multi_estimates$functions<-row.names(multi_estimates)
 
 multi_estimates_plot <- ggplot(multi_estimates, aes(x = omega, y = differential, label = functions)) +
   geom_point(size = 3, alpha = 0.5) +
-  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "grey")+
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black")+
+  geom_hline(yintercept = 0, linetype = "dotted", color = "blue")+
+  geom_vline(xintercept = 0, linetype = "dotted", color = "blue")+
   geom_text(vjust = -0.8, size = 4) +  # Labels slightly above the points
   labs(
     x = "Estimate of ND",
@@ -390,3 +392,4 @@ multi_estimates_plot <- ggplot(multi_estimates, aes(x = omega, y = differential,
     panel.grid = element_blank(),
     axis.line = element_line(color = "black")
   )
+
