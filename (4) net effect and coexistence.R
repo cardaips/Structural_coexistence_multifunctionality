@@ -320,8 +320,10 @@ pred_nd_fd_net_effect <- predict_multifunctionality_coex(model = long_net_effect
 
 plot_nd_fd_net_effect <- ggplot(data = pred_nd_fd_net_effect, aes(x = structural.niche, y = structural.fitness)) +
   geom_tile(aes(fill = fit)) +
-  geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = structural.fitness), size = 1.5, alpha = 0.035) +
+  #geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = structural.fitness), size = 1.5, alpha = 0.035) +
   scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "net effect", limits = c(-0.1,0.5)) +
+  labs(x = "niche differences", 
+       y = "fitness differences") +
   theme_classic()
 plot_nd_fd_net_effect
 
@@ -348,8 +350,10 @@ pred_nd_id_net_effect <- predict_multifunctionality_coex(model = long_net_effect
 
 plot_nd_id_net_effect <- ggplot(data = pred_nd_id_net_effect, aes(x = structural.niche, y = indirect.interactions)) +
   geom_tile(aes(fill = fit)) +
-  geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = indirect.interactions), size = 1.5, alpha = 0.035) +
+  #geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = indirect.interactions), size = 1.5, alpha = 0.035) +
   scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "net effect", limits = c(-0.1,0.5)) +
+  labs(x = "niche differences", 
+       y = "indirect interactions") +
   theme_classic()
 plot_nd_id_net_effect
 

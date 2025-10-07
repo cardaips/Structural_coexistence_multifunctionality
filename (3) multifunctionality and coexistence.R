@@ -285,8 +285,10 @@ pred_nd_fd <- predict_multifunctionality_coex(model = long_multi_model_coex_pred
 
 plot_nd_fd <- ggplot(data = pred_nd_fd, aes(x = structural.niche, y = structural.fitness)) +
   geom_tile(aes(fill = fit)) +
-  geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = structural.fitness), size = 1.5, alpha = 0.035) +
+  #geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = structural.fitness), size = 1.5, alpha = 0.035) +
   scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "multifunctionality", limits = c(0.25,0.63)) +
+  labs(x = "niche differences", 
+       y = "fitness differences") +
   theme_classic()
 plot_nd_fd
 
@@ -313,8 +315,10 @@ pred_nd_id_multi <- predict_multifunctionality_coex(model = long_multi_model_coe
 
 plot_nd_id_multi <- ggplot(data = pred_nd_id_multi, aes(x = structural.niche, y = indirect.interactions)) +
   geom_tile(aes(fill = fit)) +
-  geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = indirect.interactions), size = 1.5, alpha = 0.035) +
+  #geom_point(data = long_data_multi_threshold_control, aes(x = structural.niche, y = indirect.interactions), size = 1.5, alpha = 0.035) +
   scale_fill_distiller(palette = "YlGnBu", direction = -1, name = "multifunctionality", limits = c(0.25,0.63)) +
+  labs(x = "niche differences", 
+       y = "indirect interactions") +
   theme_classic()
 plot_nd_id_multi
 
