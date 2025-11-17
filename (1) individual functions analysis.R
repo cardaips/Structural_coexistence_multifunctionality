@@ -6,7 +6,8 @@
 ### structural coexistence measure
 
 # renv loading and library ####
-# renv::restore()
+# renv::restore() # /!\ remove the comment to restore the versions of packages I used during this analysis and to avoid compatibility issues!
+renv::settings$ignored.packages("rgl")
 library(dplyr) # for efficient data wrangling
 library(tidyr) # for efficient data wrangling
 library(corrplot) # to check correlations between functions
