@@ -10,7 +10,7 @@ Please refer to the METADATA text file that regroups all information on the data
 
 #### *coexistence and experimental design*
 
-In the data folder, you can find a subfolder called "species alphas and lambdas" containing all competition matrices used during the analysis, as text files which names start with "biommatrix", and their associated standard errors, which are named "SE_biommatrix". The species intrinsic growth rates are also present in this folder under the name starting with "biomintrinsic".These matrices are derived over the whole year 2020 (combining June and August sampling for this year), or only for June 2020 sampling, as this month was used to compute predictions for 2022 species evenness.
+In the data folder, you can find a subfolder called "species alphas and lambdas" containing all competition matrices used during the analysis, as text files which names start with "biommatrix", and their associated standard errors, which are named "SE_biommatrix". The species intrinsic growth rates are also present in this folder under the name starting with "biomintrinsic". These matrices are derived over the whole year 2020 (combining June and August sampling for this year), or only for June 2020 sampling, as this month was used to compute predictions for 2022 species evenness.
 
 Two text files, "plot_info" and "structural_coexistence_experimental_design", describe the organisation of the plots in our study, which species compose them and what are their predicted coexistence strength and mechanisms. The "structural_coexistence_experimental_design" file itself is derived from another text file "all_triplets_experiment" which lists structural coexistence values for all possible triplets from our pool of species. The environment image "structural_coexistence_image.Rdata" also contains the same information but pre-loaded for convenient sourcing.
 
@@ -32,7 +32,7 @@ A set of ecosystem functions and data sampled in our triplet experiment may be f
 
 -   decomposition in April 2023
 
-Aside from these ecosystem function, the percentage cover of each species present in the plot was also recorded in June and August 2022.
+Aside from these ecosystem functions, the percentage cover of each species present in the plot was also recorded in June and August 2022.
 
 ### b) R functions
 
@@ -40,7 +40,7 @@ This repository contains two folders that regroups functions from previous studi
 
 -   the folder "anisoFun functions" contains functions from the paper: "Structural asymmetry in biotic interactions as a tool to understand and predict ecological persistence.", by Allen‐Perkins, Alfonso, et al., *Ecology Letters* (2023). This code was used to compute the minimum distance to exclusion variable, a measure of coexistence strength.
 
--   the folder "structural coexistence functions" contains a set of functions from the paper: "A structural approach for understanding multispecies coexistence." by Saavedra, Serguei, et al., *Ecological Monographs* (2017). This code was used to compute all measure of coexistence mechanisms: niche and fitness differences as well as indirect interactions.
+-   the folder "structural coexistence functions" contains a set of functions from the paper: "A structural approach for understanding multispecies coexistence." by Saavedra, Serguei, et al., *Ecological Monographs* (2017). This code was slightly adapted by me and it was used to compute all measure of coexistence mechanisms: niche and fitness differences as well as indirect interactions.
 
 ### c) code
 
