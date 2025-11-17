@@ -6,7 +6,7 @@
 ### structural coexistence measure
 
 # renv loading and library ####
-#renv::restore()
+# renv::restore()
 library(dplyr) # for efficient data wrangling
 library(tidyr) # for efficient data wrangling
 library(corrplot) # to check correlations between functions
@@ -17,13 +17,13 @@ library(devtools) # to manipulate lme4 in order to hack the random factors
 library(reshape) # just another efficient data wrangling package
 library(ghibli) # nice colors package
 library(broom.mixed) # mixed model package
-library(broom) #normal linear model package
+library(broom) # normal linear model package
 library(stringr) # easy strings manipulation
 library(effects) # aesthetic package
 library(ggpubr) # complements ggplot2
 library(scales) # complements ggplot2
 library(styler) # standardized code syntax, make it pretty!
-library(vegan) #to get the Shannon diversity easily
+library(vegan) # to get the Shannon diversity easily
 library(flextable) # make beautiful table output easily
 library(officer) # save and write office documents from R
 library(purrr) # extract some model estimates for plotting
@@ -59,7 +59,7 @@ cover_june_22[, 6:20] <- cover_june_22[, 6:20] / (cover_june_22$total.cover + co
 cover_august_22 <- read.table("data/202207_%cover.txt", sep = "\t", header = T)
 cover_june_22[cover_june_22 == "x"] <- NA
 cover_august_22[, 6:20] <- cover_august_22[, 6:20] / (cover_august_22$total.cover + cover_august_22$bare.ground)
-cover_august_22[cover_august_22=="x"] <- NA
+cover_august_22[cover_august_22 == "x"] <- NA
 
 # making them both in long format
 cover_june <- data.frame(plot = NA, nitrogen = NA, species = NA, percentage.cover = NA)
@@ -117,34 +117,36 @@ cover_mean$mean.percentage.cover <- (cover_mean$percentage.cover.x + cover_mean$
 
 # counting how many extinctions
 extinctions <- 0
-plot_extinctions <-NULL
+plot_extinctions <- NULL
 species_extinct <- NULL
 
 for (i in 1:nrow(cover_june_22)) {
-  foc_sp <- cover_june_22[i,3:5]
+  foc_sp <- cover_june_22[i, 3:5]
   foc_sp <- as.vector(unlist(foc_sp))
-  
+
   foc_june <- cover_june_22[i, which(colnames(cover_june_22) %in% foc_sp)]
   foc_aug <- cover_august_22[i, which(colnames(cover_august_22) %in% foc_sp)]
-  
+
   for (j in 1:length(foc_june)) {
-    if (foc_june[j]&foc_aug[j]==0){
+    if (foc_june[j] & foc_aug[j] == 0) {
       extinctions <- extinctions + 1
       plot_extinctions <- rbind(plot_extinctions, cover_june_22$plot_ID[i])
       species_extinct <- rbind(species_extinct, names(foc_june[j]))
-    }
-    else {
+    } else {
       extinctions <- extinctions
     }
   }
 }
 
 species_extinct <- as.data.frame(species_extinct)
-colnames(species_extinct)<- "species"
-species_extinct$plot<-plot_extinctions[,1]
+colnames(species_extinct) <- "species"
+species_extinct$plot <- plot_extinctions[, 1]
 
-species_extinct <- species_extinct %>% regulartable() %>% autofit()
-word_table <-  read_docx() %>%  body_add_flextable(species_extinct) %>%
+species_extinct <- species_extinct %>%
+  regulartable() %>%
+  autofit()
+word_table <- read_docx() %>%
+  body_add_flextable(species_extinct) %>%
   print(target = "extinction table.docx")
 
 # loading data for triplet plots per function ####
@@ -226,8 +228,10 @@ all_functions <- data.frame(
   root_biomass = root_biomass$root_dry_weight, decomposition = plot_decomposition$delta_weight,
   fungi_damage = plot_damage$fungi_damage, herbivory_damage = plot_damage$herbivory_damage
 )
-corrplot(cor(all_functions[, 3:9]), method = "number", type = "upper", title = "a.",
-         mar = c(0, 0, 1, 0)) # looks ok
+corrplot(cor(all_functions[, 3:9]),
+  method = "number", type = "upper", title = "a.",
+  mar = c(0, 0, 1, 0)
+) # looks ok
 
 ## transform function to have a normal distribution
 # log what is not normally distributed
@@ -371,14 +375,14 @@ model_multi_estimates <- lapply(all_models, function(m) {
 })
 multi_estimates <- do.call(rbind, model_multi_estimates)
 multi_estimates <- as.data.frame(multi_estimates)
-multi_estimates$functions<-row.names(multi_estimates)
+multi_estimates$functions <- row.names(multi_estimates)
 
 multi_estimates_plot <- ggplot(multi_estimates, aes(x = omega, y = differential, label = functions)) +
   geom_point(size = 3, alpha = 0.5) +
-  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black")+
-  geom_hline(yintercept = 0, linetype = "dotted", color = "blue")+
-  geom_vline(xintercept = 0, linetype = "dotted", color = "blue")+
-  geom_text(vjust = -0.8, size = 4) +  # Labels slightly above the points
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
+  geom_hline(yintercept = 0, linetype = "dotted", color = "blue") +
+  geom_vline(xintercept = 0, linetype = "dotted", color = "blue") +
+  geom_text(vjust = -0.8, size = 4) + # Labels slightly above the points
   labs(
     x = "Estimate of ND",
     y = "Estimate of ID",
@@ -386,10 +390,9 @@ multi_estimates_plot <- ggplot(multi_estimates, aes(x = omega, y = differential,
   ) +
   xlim(-0.3, 0.5) +
   ylim(-0.3, 0.25) +
-  theme_minimal(base_size = 14)+
+  theme_minimal(base_size = 14) +
   theme(
     plot.title = element_text(hjust = 0.5, face = "bold"),
     panel.grid = element_blank(),
     axis.line = element_line(color = "black")
   )
-

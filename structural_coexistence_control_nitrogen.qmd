@@ -4,6 +4,12 @@ format: html
 editor: visual
 ---
 
+Code author: Caroline Daniel
+
+contact: caroline.daniel\@unibe.ch
+
+*This code uses the functions found in "structural_coexistence_functions.R" to compute structural niche and fitness differences as well as indirect interactions for our communities of 3 species under control conditions and nitrogen addition (only control conditions were analysed in this study).*
+
 ## Load the necessary functions
 
 ```{r}

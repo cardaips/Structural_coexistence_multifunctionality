@@ -101,8 +101,10 @@ all_functions_predicted$herbivory_damage <- log(all_functions_predicted$herbivor
 # build the net effect dataset for each 48 plot by comparing with predicted values from monocultures ####
 net_effect <- all_functions[3:9] - all_functions_predicted[3:9]
 # quick check of correlations
-corrplot(cor(net_effect), method = "number", type = "upper", title = "b.",
-         mar = c(0, 0, 1, 0)) # looks ok
+corrplot(cor(net_effect),
+  method = "number", type = "upper", title = "b.",
+  mar = c(0, 0, 1, 0)
+) # looks ok
 net_effect$plot <- all_functions$plot
 net_effect$nitrogen <- all_functions$nitrogen
 net_effect <- merge(net_effect, structural_coexistence_all)
@@ -169,23 +171,22 @@ model_net_effect_estimates <- lapply(all_models, function(m) {
 })
 net_effect_estimates <- do.call(rbind, model_net_effect_estimates)
 net_effect_estimates <- as.data.frame(net_effect_estimates)
-net_effect_estimates$functions<-row.names(net_effect_estimates)
+net_effect_estimates$functions <- row.names(net_effect_estimates)
 
 net_effect_estimates_plot <- ggplot(net_effect_estimates, aes(x = omega, y = differential, label = functions)) +
   geom_point(size = 3, alpha = 0.5) +
-  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black")+
-  geom_hline(yintercept = 0, linetype = "dotted", color = "blue")+
-  geom_vline(xintercept = 0, linetype = "dotted", color = "blue")+
-  geom_text(vjust = -0.8, size = 4) +  # Labels slightly above the points
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
+  geom_hline(yintercept = 0, linetype = "dotted", color = "blue") +
+  geom_vline(xintercept = 0, linetype = "dotted", color = "blue") +
+  geom_text(vjust = -0.8, size = 4) + # Labels slightly above the points
   labs(
     x = "Estimate of ND",
     y = "Estimate of ID",
     title = "Estimates of ND vs. ID, individual net effect"
   ) +
-  
   xlim(-0.3, 0.5) +
   ylim(-0.3, 0.25) +
-  theme_minimal(base_size = 14)+
+  theme_minimal(base_size = 14) +
   theme(
     plot.title = element_text(hjust = 0.5, face = "bold"),
     panel.grid = element_blank(),
