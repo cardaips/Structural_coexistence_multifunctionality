@@ -29,6 +29,16 @@ library(flextable) # make beautiful table output easily
 library(officer) # save and write office documents from R
 library(purrr) # extract some model estimates for plotting
 
+# here you can find the full list of packages and their version needed for this study:
+lock <- renv::lockfile_read("renv.lock")
+pkgs <- lock$Packages
+
+packages.renv <- data.frame(
+  package = names(pkgs),
+  version = sapply(pkgs, function(x) x$Version),
+  row.names = NULL
+)
+
 # loading function from anisoFun package manually
 ## These functions come from Allen-Perkin et al. 2023, Ecology Letters,  doi: https://doi.org/10.1111/ele.14291
 files.sources <- list.files(paste(getwd(), "/anisoFun functions", sep = ""))
