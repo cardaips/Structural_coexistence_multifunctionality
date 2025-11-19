@@ -1,0 +1,135 @@
+## Guide to the data folder associated with "Stably coexisting communities deliver higher ecosystem multifunctionality." ##
+
+author: Caroline DANIEL (contact: caroline.daniel@unibe.ch)
+date: 18-11-2025
+
+This file contains information on the data available for the publication of "Stably coexisting communities deliver higher ecosystem multifunctionality.", it lists all abbreviations of data file names and gives information on the different units in which the data was measured.
+
+(1) experimental design
+These files contain several types of information on the experimental design of the study:
+
+The file "plot_info.txt" is composed of several variables:
+-> plot: describes the plot number
+-> sp1-sp3: describes the abbreviation of each species present in the plot. For a list of species abbreviations, see the Table S1 in the publication.
+
+The file "structural_coexistence_experimental_design.txt" is composed of predictions of coexistence mechanisms for each plot:
+-> plot: describes the plot number
+-> nitrogen: presence or absence of resource addition within each of the 48 plots (nitrogen addition was not analysed in the publication and is only indicative of the experimental design)
+-> omega: structural niche differences obtained with the code "structural_coexistence_control_nitrogen.qmd" adapted from the publication Saavedra et al. 2017, Ecological Monographs
+-> theta: structural fitness differences
+-> feasibility: binary, whether or not the triplet is predicted to be stably coexisting
+-> differential: estimation of indirect interactions
+-> min.distance: minimum distance to exclusion, a measure of species coexistence strength, derived from the publication Allen-Perkins et al. 2023, Ecology Letters
+All coexistence measures are comparable to ratios and do not have a unit.
+
+The image "structural_coexistence_image.Rdata" is a summary of these two files, and is saved for more convenient loading by the code of the main analysis. 
+
+(2) species alphas and lambdas folder ("biommatrix" and "biomintrinsic" files)
+
+(a) estimates of species interaction
+Files which names are a variation of: "biommatrix_month_year_treatment.txt" contain information on the estimates of species interactions obtained with our phytometer experiment (see Daniel et al. 2024, Ecology Letters, for more information on the method). 
+They  come in the form of 18 x 18 matrices with columns and rows names being the abbreviated version of each species present in our experiment (see Table S1 of the publication for the list of abbreviations).
+Interactions coefficients can be negative (competition) or positive (facilitation), and they represent the coefficient of a negative binomial regression of the biomass of the focal phytometer with the cover of a specific neighbour species. As they are equivalent to a ratio, they don't have a unit.
+
+(b) estimates of species intrinsic growth rates
+Files which names are a variation of: "biomintrinsic_month_year_treatment.txt" contain information on the estimates of species intrinsic growth rates obtained with our phytometer experiment. They are exclusively positive as they represent the biomass production of a phytometer growing alone. 
+
+(c) standard deviation of species interaction
+Files which names are a variation of: "SE_biommatrix_month_year_treatment.txt" contain information on the standard deviation corresponding to each respective interaction coefficient obtained with our phytometer experiment. 
+They come in the form of 18 x 18 matrices with columns and rows names being the abbreviated version of each species present in our experiment (see Table S1 of the publication for the list of abbreviations).
+They are strictly positive and represent the uncertainty of each corresponding estimation of the pairwise interaction between two species, as such, they don't have a unit.
+
+(3) ecosystem functions
+
+(a) biomass
+The file "2022_biomass_may_august.txt" describes the dry biomass sampled in the 48 three-species plots.
+The file "2022_biomass_may_august_mono.txt" describes the dry biomass sampled in the 12 monoculture plots (used for computing the net effects).
+-> plot: see experimental design section
+-> nitrogen: see experimental design section
+The biomass was sampled in end-May (spring biomass) and August 2022 (summer biomass), all values are expressed in g. of dry biomass. The mean column is the mean biomass calculated over the two sampling periods.
+
+(b) enzymatic activity
+- betaglucosidase
+The file "2022_betaglucosidase_may_august.txt" describes the enzymatic activity measured in the 48 three-species plots
+The file "2022_betaglucosidase_may_august_mono.txt" describes the enzymatic activity measured in in the 12 monoculture plots (used for computing the net effects).
+-> plot: see experimental design section
+-> nitrogen: see experimental design section
+-> betaglucosidase_spring or mono.betaglucosidase_spring: expressed in μmol.g-1.h-1 (micromol released per g. of dry soil per hour) measured at the end of May 2022
+-> calibration_spring: calibration group used during the sampling in May 2022, new calibrations were made every half day of work, so samples within the same calibration group were processed roughly at the same time. 
+-> betaglucosidase_summer or mono.betaglucosidase_summer: same as for the spring sampling, but measures were made during August 2022.
+-> calibration_summer: same as for the spring sampling, but measures were made during August 2022.
+
+- phosphatase
+The file "2022_phosphatase_may_august.txt" describes the enzymatic activity measured in the 48 three-species plots.
+The file "2022_phosphatase_may_august_mono.txt" describes the enzymatic activity measured in the 12 monoculture plots (used for computing the net effects).
+-> plot: see experimental design section
+-> nitrogen: see experimental design section
+-> phosphatase_spring or mono.phosphatase_spring: expressed in μmol.g-1.h-1 (micromol released per g of dry soil per hour) measured at the end of May 2022
+-> calibration_spring: calibration group used during the sampling in May 2022, new calibrations were made every half day of work, so samples within the same calibration group were processed roughly at the same time
+-> phosphatase_summer or mono.phosphatase_summer: same as for the spring sampling, but measurements were made during August 2022
+-> calibration_summer: same as for the spring sampling, but measurements were made during August 2022
+
+(c) natural enemies damage
+The files "202205_herbivory_pathogen.txt" and "202205_herbi_patho_ostermundigen_mono.txt" describe herbivory and pathogen damage measured in May 2022 and in respectively, the 48 three-species plots and the 12 monoculture plots.
+-> species: plant species identity
+-> plot: see experimental design section
+-> nitrogen: see experimental design section
+-> attribute: plant functional attribute used for sorting leaves during scoring
+-> rust: count of leaves infected by rust
+-> p_mildew: count of leaves infected by powdery mildew
+-> d_mildew: count of leaves infected by downy mildew
+-> l_spot: count of leaves showing leaf spot
+-> n_dmg_fung: count of fungal damage occurrences (all pathogen types combined)
+-> mean_perc_dmg_fung: mean percentage of leaf area damaged by fungal pathogens
+-> perc_leaves_dmg_fung: percentage of leaves damaged by fungal pathogens
+-> perc_dmg_fung: overall percentage of fungal pathogen damage
+-> chewing: count of leaves damaged by chewing herbivores
+-> sucking: count of leaves damaged by sucking herbivores
+-> mining: count of leaves damaged by leaf miners
+-> n_dmg: total count of herbivore damage occurrences (all herbivore types combined)
+-> mean_perc_dmg: mean percentage of leaf area damaged by herbivores
+-> n_leaves: total number of leaves scored per species
+-> perc_leaves_dmg: percentage of leaves showing any herbivore damage
+-> perc_dmg: overall percentage of herbivore damage
+-> date: sampling date
+-> comments: additional notes recorded during sampling→ comments: additional notes recorded during sampling
+All information scored during the sampling was kept in these files, but the analyses in this publication only focused on "mean_perc_dmg_fung" and "mean_perc_dmg".
+
+(d) root biomass
+The files "202208_root_biomass.txt" and "202208_root_biomass_mono.txt" describe root biomass measured in August 2022 in, respectively, the 48 three-species plots and the 12 monoculture plots (used for computing net effects).
+-> plot nr: see "plot" in experimental design section
+-> nitrogen: see experimental design section
+-> root_dry_weight_mg_g: root dry weight expressed in mg of dry root per g of dry soil
+
+(e) decomposition
+The file "202304_decomposition.txt" describes the decomposition measurements taken in April 2023, and "202304_decomposition_mono.txt" describes the same measurements for the monoculture plots.
+-> plot nr: see "plot" in experimental design section
+-> nitrogen: see experimental design section
+-> weight_before or mono.weight.before: dry weight of the litterbag content before field incubation in February 2023, in g.
+-> wetweight.after or mono.weight.wet: wet weight of the litterbag content after retrieval from the field in April 2023, in g.
+-> weight_after or mono.weight.after: dry weight of the litterbag content after oven drying following the April 2023 retrieval, in g.
+
+(4) species abundances
+The files "202206_%cover.txt" and "202207_%cover.txt" describe plant cover measured in June and July 2022, respectively, in the experimental plots.
+
+-> plot_ID: see "plot" in experimental design section
+-> Treatment: experimental treatment applied. C indicates control, N indicates nitrogen addition. See "nitrogen" in experimental design section
+-> species 1, species 2, species 3: identities of the species planted in the plot, see "sp1-sp3" in experimental design section
+-> Be to To: cover of target species measured individually. Each column corresponds to a specific species, cover is expressed in % (see Table S1 of the publication for the list of species abbreviations)
+-> grasses, herbs, legumes: cover of non-target species (weeds), cover is expressed in %
+-> total cover: overall plant cover including both target and non-target species, cover is expressed in %
+-> bare ground: percentage of plot area not covered by vegetation
+-> date: sampling date
+
+(5) predicted evenness and abundances
+The file "bh_predicted_eveness_15y_2022.txt" contains predicted values of species evenness for the experimental triplets, generated with a Beverton Holt population model run to equilibrium over 15 years using the code from "time_to_extinction_tool_no_SE.R". Predictions correspond to Pielou’s evenness at equilibrium.
+-> triplet: identity of the three species considered (see Table S1 of the publication for the list of abbreviations)
+-> evenness.22: predicted Pielou evenness at equilibrium (after 15 years)
+
+The file "abundances_predictedBH_all_plots.txt" contains predicted relative abundances for each species in each plot. Predictions were generated with the Beverton Holt population model run to equilibrium (15 years) using the code from "time_to_extinction_tool_no_SE.R".
+-> species: identity of the species for which the relative abundance is predicted (see Table S1 of the publication for the list of abbreviations)
+-> value: predicted relative abundance at equilibrium
+-> plot: see experimental design section
+
+
+
