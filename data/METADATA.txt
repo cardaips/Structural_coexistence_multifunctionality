@@ -12,7 +12,20 @@ The file "plot_info.txt" is composed of several variables:
 -> plot: describes the plot number
 -> sp1-sp3: describes the abbreviation of each species present in the plot. For a list of species abbreviations, see the Table S1 in the publication.
 
-The file "structural_coexistence_experimental_design.txt" is composed of predictions of coexistence mechanisms for each plot:
+The file "all_triplets_experiment.txt" is composed of predictions of coexistence and its mechanisms for each all possible combination of species in the PaNDiv experiment, these were the basis of selection of a subset of species/triplets for our triplet experiment:
+-> treatment: the treatment in which these values were derived for all set of species: only "control" is used here.
+-> species: the species combination for each possible triplet, here, all 18 species from the PaNDiv experiment are used, while in our triplet experiment only a subset of 12 species remains
+-> richness: richness level used for the derivation of coexistence values, here, the only richness value is 3
+-> year: year in which the values used to derive the coexistence was sampled, here, 2020 only
+-> Omega: structural niche differences obtained with the code "structural_coexistence_control_nitrogen.qmd" adapted from the publication Saavedra et al. 2017, Ecological Monographs
+-> theta: structural fitness differences
+-> feasibility: binary, whether or not the triplet is predicted to be stably coexisting
+-> differential: estimation of indirect interactions
+-> overlap: the amount of overlap between the pairwise feasibility domain and the triplet feasibility domain (0 is no overlap, 1 is perfect overlap)
+-> coex_rate: the percentage of individual pairs within the triplet that can stably coexist
+-> indirect_efects: the difference between the percentage of coexistence of the triplet and the percentage of coexistence of each pair composing the triplet
+
+The file "structural_coexistence_experimental_design.txt" is derived from the file "all_triplet_experiment.txt" and composed of predictions of coexistence mechanisms for each 48 plots in our triplet experiment:
 -> plot: describes the plot number
 -> nitrogen: presence or absence of resource addition within each of the 48 plots (nitrogen addition was not analysed in the publication and is only indicative of the experimental design)
 -> omega: structural niche differences obtained with the code "structural_coexistence_control_nitrogen.qmd" adapted from the publication Saavedra et al. 2017, Ecological Monographs
@@ -22,7 +35,7 @@ The file "structural_coexistence_experimental_design.txt" is composed of predict
 -> min.distance: minimum distance to exclusion, a measure of species coexistence strength, derived from the publication Allen-Perkins et al. 2023, Ecology Letters
 All coexistence measures are comparable to ratios and do not have a unit.
 
-The image "structural_coexistence_image.Rdata" is a summary of these two files, and is saved for more convenient loading by the code of the main analysis. 
+The image "structural_coexistence_image.Rdata" is a summary of these files, and is saved for more convenient loading by the code of the main analysis. 
 
 (2) species alphas and lambdas folder ("biommatrix" and "biomintrinsic" files)
 
@@ -131,5 +144,9 @@ The file "abundances_predictedBH_all_plots.txt" contains predicted relative abun
 -> value: predicted relative abundance at equilibrium
 -> plot: see experimental design section
 
+The file "years_to_extinction_triplets.txt" contains predicted values of extinctions for each triplet, generated with a Beverton Holt population model run to 100 years, using the code from "time_to_extinction_tool_no_SE.R".
+-> triplet: identity of the triplet of species composing each plot (see Table S1 of the publication for the list of species abbreviations)
+-> splim: which species is predicted to go extinct (= NA if stable coexistence is predicted)
+-> year_to_extinction: amount of years predicted for one species to go extinct (= NA if stable coexistence is predicted)
 
 
